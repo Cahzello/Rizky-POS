@@ -39,7 +39,7 @@
         </div>
         <div class="card-body">
             <div>
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover table-responsive">
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
