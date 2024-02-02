@@ -29,20 +29,4 @@ class RoutingController extends Controller
         ]);
     }
 
-    public function transaction()
-    {
-        return view('transactions', [
-            'isLogin'=> false,
-            'active' => 'transactions'
-        ]);
-    }
-
-    public function item()
-    {
-        return view('itemView.index', [
-            'isLogin' => false,
-            'active' => 'item'
-        ]);
-    }
-
 }

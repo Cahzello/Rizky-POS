@@ -38,8 +38,8 @@
             @endif
         </div>
         <div class="card-body">
-            <div>
-                <table class="table table-striped table-bordered table-hover table-responsive">
+            <div class="table-responsive-md">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
@@ -47,7 +47,7 @@
                             <th>Stock</th>
                             <th>Price</th>
                             <th>Category</th>
-                            <th>Actions</th>
+                            <th colspan="2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,10 +59,14 @@
                             <td>1</td>
                             <td>
                                 <a href="" title="Edit Data" class="btn btn-warning"><i
-                                        class="fas fa-pen-square"></i></a>
-                                <a href="" title="Delete Data" class="btn btn-danger"><i
-                                        class="fas fa-trash"></i></a>
+                                        class="fas fa-pen-square"></i> Edit Data</a>
                             </td>
+                            <td>
+                                <a href="" title="Delete Data" class="btn btn-danger"><i
+                                        class="fas fa-trash"></i> Delete Data</a>
+
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>

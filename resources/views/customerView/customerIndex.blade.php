@@ -24,14 +24,14 @@
             </div>
         </div>
         <div class="card-body">
-            <div>
-                <table class="table table-striped table-bordered table-hover">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover text-center">
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
                             <th>Customer Name</th>
                             <th>Customer Email</th>
-                            <th>Action</th>
+                            <th colspan="2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,9 +41,12 @@
                             <td>fath@gmail.com</td>
                             <td>
                                 <a href="" title="Edit Transactions" class="btn btn-warning"><i
-                                        class="fas fa-pen-square "></i></a>
+                                        class="fas fa-pen-square "></i> Edit Data</a>
+                            </td>
+                            <td>
                                 <a href="" title="Delete Transactions" class="btn btn-danger"><i
-                                        class="fas fa-trash "></i></a>
+                                    class="fas fa-trash "></i> Delete Data</a>
+
                             </td>
                         </tr>
                     </tbody>

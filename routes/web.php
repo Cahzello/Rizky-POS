@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoutingController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ Route::get('/login', [RoutingController::class, 'login'])->name('login');
 
 Route::get('/register', [RoutingController::class, 'register'])->name('register');
 
-Route::get('/transactions', [RoutingController::class, 'transaction'])->name('transactions.index');
+Route::resource('/transactions', TransactionController::class);
 
 Route::resource('/items', ItemController::class);
 
