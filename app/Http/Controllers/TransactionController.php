@@ -11,17 +11,21 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('transactions', [
-            'isLogin'=> false,
+        return view('transactionsView.transactionsIndex', [
+            'isLogin' => false,
             'active' => 'transactions'
-        ]);    }
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('transactionsView.transactionsCreate', [
+            'isLogin' => false,
+            'active' => 'transactions'
+        ]);
     }
 
     /**
@@ -29,7 +33,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedRequest = $request->validate([
+            'item-name' => 'required|string',
+        ]);
+
+        return redirect(route('items.create'))->with('success', 'berhasil kayanya');
+
     }
 
     /**

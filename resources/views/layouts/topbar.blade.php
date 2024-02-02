@@ -9,7 +9,7 @@
 
         <!-- Topbar Search -->
         <div class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
-            <a href="#" class="btn btn-success">Add Transactions <span class="icon"><i class="fas fa-plus-circle"></i></span></a>
+            <a href="{{route('transactions.create')}}" class="btn btn-success">Create Transactions <span class="icon"><i class="fas fa-plus-circle"></i></span></a>
         </div>
 
         <!-- Topbar Navbar -->
