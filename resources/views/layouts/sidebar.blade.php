@@ -20,17 +20,18 @@
             <span>Dashboard</span></a>
     </li>
     
+    <li class="nav-item {{$active === 'transactions' ? 'active' : ''}}">
+        <a class="nav-link" href="{{route('transactions.index')}}">
+            <i class="fas fa-fw fa-exchange-alt"></i>
+            <span>Transactions</span></a>
+    </li>
+    
     <li class="nav-item {{$active === 'item' ? 'active' : ''}}">
         <a class="nav-link" href="{{route('items.index')}}">
             <i class="fas fa-fw fa-dolly-flatbed"></i>
             <span>Items</span></a>
     </li>
 
-    <li class="nav-item {{$active === 'transactions' ? 'active' : ''}}">
-        <a class="nav-link" href="{{route('transactions.index')}}">
-            <i class="fas fa-fw fa-exchange-alt"></i>
-            <span>Transactions</span></a>
-    </li>
 
     <li class="nav-item {{$active === 'category' ? 'active' : ''}}">
         <a class="nav-link" href="{{route('category.index')}}">

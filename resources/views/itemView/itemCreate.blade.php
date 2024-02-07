@@ -108,15 +108,6 @@
                         @enderror
                     </div>
                 </div>
-                <div class="mb-4">
-                    <label for="item-desc">Item Description (Optional)</label>
-                    <div class="input-group w-50">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-edit"></i></span>
-                        </div>
-                        <textarea class="form-control" id="item-desc" name="item-desc"></textarea>
-                    </div>
-                </div>
                 <input type="submit" class="btn btn-primary">
             </form>
         </div>
