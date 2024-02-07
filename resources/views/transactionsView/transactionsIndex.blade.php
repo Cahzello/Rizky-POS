@@ -18,7 +18,7 @@
                         <span class="icon text-white-100">
                             <i class="fas fa-exchange-alt"></i>
                         </span>
-                        <span class="text">Add Transactions</span>
+                        <span class="text">Create Transactions</span>
                     </a>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                             <td>123455</td>
                             <td>
                                 <a href="" title="Edit Transactions" class="btn btn-warning"><i
-                                        class="fas fa-pen-square "></i> Delete Data</a>
+                                        class="fas fa-pen-square "></i> Edit Data</a>
                             </td>
                             <td>
                                 <a href="" title="Delete Transactions" class="btn btn-danger"><i
