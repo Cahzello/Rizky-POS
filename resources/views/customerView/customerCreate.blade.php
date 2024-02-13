@@ -40,8 +40,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control @error('customer-name') is-invalid @enderror" value="{{old('customer-name')}}" id="customer-name" name="customer-name" autofocus>
-                        @error('customer-name')
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}}" id="customer-name" name="name" autofocus>
+                        @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -54,8 +54,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                         </div>
-                        <input type="email" class="form-control @error('customer-email') is-invalid @enderror" value="{{old('customer-email')}}" id="customer-email" name="customer-email">
-                        @error('customer-email')
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}" id="customer-email" name="email">
+                        @error('email')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

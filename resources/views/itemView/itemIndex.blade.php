@@ -39,35 +39,48 @@
         </div>
         <div class="card-body">
             <div class="table-responsive-md">
-                <table class="table table-striped table-bordered table-hover text-center">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
                             <th>Nama Item</th>
                             <th>Stock</th>
                             <th>Price</th>
+                            <th>Cost Price</th>
                             <th>Category</th>
                             <th colspan="2">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>
-                                <a href="" title="Edit Data" class="btn btn-warning"><i
-                                        class="fas fa-pen-square"></i> Edit Data</a>
-                            </td>
-                            <td>
-                                <a href="" title="Delete Data" class="btn btn-danger"><i
-                                        class="fas fa-trash"></i> Delete Data</a>
 
-                            </td>
+                        @if (!empty($data))
+                            @foreach ($data as $key => $item)
+                                <tr>
+                                    <td style="width: 5%;">{{ $key+1 }}</td>
+                                    <td>{{$item->name}}</td>
+                                    <td>{{$item->stock_level}}</td>
+                                    <td>{{$item->price}}</td>
+                                    <td>{{$item->cost_price}}</td>
+                                    <td>Unknown</td>
+                                    <td style="width: 10%;">
+                                        <a href="" title="Edit Data" class="btn btn-warning"><i
+                                                class="fas fa-pen-square"></i> </a>
+                                    </td>
+                                    <td style="width: 10%;">
+                                        <a href="" title="Delete Data" class="btn btn-danger"><i
+                                                class="fas fa-trash"></i>
+                                            </a>
 
-                        </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="6">No Data</td>
+                            </tr>
+                        @endif
+
+
                     </tbody>
                 </table>
             </div>

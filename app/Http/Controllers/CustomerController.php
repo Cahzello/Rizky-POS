@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -11,9 +12,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        $data = Customer::get()->all();
+
         return view('customerView.customerIndex', [
             'isLogin' => false,
-            'active' => 'users'
+            'active' => 'users',
+            'data' => $data
         ]);
     }
 
@@ -33,11 +37,12 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);    
         $validatedRequest = $request->validate([
-            'customer-name' => 'required|string',
-            'customer-email' => 'required|email',
+            'name' => 'required|string',
+            'email' => 'required|email',
         ]);
+
+        Customer::create($validatedRequest);
 
         return redirect(route('customer.create'))->with('success', 'berhasil kayanya');
     }

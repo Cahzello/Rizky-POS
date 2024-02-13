@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,9 +12,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $data = Categories::get()->all();
+        
         return view('categoryView.categoryIndex', [
             'isLogin' => false,
-            'active' => 'category'
+            'active' => 'category',
+            'data' => $data
         ]);
     }
 

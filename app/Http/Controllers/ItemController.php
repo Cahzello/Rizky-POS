@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -11,9 +12,12 @@ class ItemController extends Controller
      */
     public function index()
     {
+        $data = Item::get()->all();
+
         return view('itemView.itemIndex',[
             'isLogin' => false,
-            'active' => 'item'
+            'active' => 'item',
+            'data' => $data
         ]);
     }
 
