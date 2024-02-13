@@ -59,8 +59,8 @@
                                     <td style="width: 5%;">{{ $key+1 }}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->stock_level}}</td>
-                                    <td>{{$item->price}}</td>
-                                    <td>{{$item->cost_price}}</td>
+                                    <td>Rp {{number_format($item->price)}}</td>
+                                    <td>Rp {{number_format($item->cost_price)}}</td>
                                     <td>Unknown</td>
                                     <td style="width: 10%;">
                                         <a href="" title="Edit Data" class="btn btn-warning"><i

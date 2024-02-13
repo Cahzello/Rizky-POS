@@ -22,32 +22,51 @@
                     </a>
                 </div>
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <p>Error. Please verify and check again.</p>
+                </div>
+            @endif
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
                     <thead class="thead-dark">
+                        <tr class="text-center">
+                            <th rowspan="2" class="align-middle">No</th>
+                            <th rowspan="2" class="align-middle">Customer Name</th>
+                            <th rowspan="2" class="align-middle">Customer Email</th>
+                            <th colspan="2" class="align-middle">Actions</th>
+                        </tr>
                         <tr>
-                            <th>No</th>
-                            <th>Customer Name</th>
-                            <th>Customer Email</th>
-                            <th colspan="2">Action</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr>
-                                    <td style="width: 5%;"> {{$key + 1}} </td>
-                                    <td>{{ $item->name}}</td>
-                                    <td>{{ $item->email}}</td>
+                                    <td style="width: 5%;"> {{ $key + 1 }} </td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Edit Transactions" class="btn btn-warning"><i
-                                                class="fas fa-pen-square "></i></a>
+                                        <a href="{{ route('customer.edit', $item->id) }}" title="Edit"
+                                            class="btn btn-warning"><i class="fas fa-pen-square "></i></a>
                                     </td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Delete Transactions" class="btn btn-danger"><i
-                                                class="fas fa-trash "></i></a>
+                                        <form action="{{ route('customer.destroy', $item->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button title="Delete" class="btn btn-danger"
+                                                onclick="return confirm('Are you want to delete this data?')"><i
+                                                    class="fas fa-trash "></i></button>
+                                        </form>
 
                                     </td>
                                 </tr>

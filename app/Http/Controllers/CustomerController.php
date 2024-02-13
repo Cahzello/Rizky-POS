@@ -44,7 +44,7 @@ class CustomerController extends Controller
 
         Customer::create($validatedRequest);
 
-        return redirect(route('customer.create'))->with('success', 'berhasil kayanya');
+        return redirect(route('customer.create'))->with('success', 'Success');
     }
 
     /**
@@ -60,7 +60,13 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Customer::find($id);
+
+        return view('customerView.customerEdit', [
+            'isLogin' => false,
+            'active' => 'users',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -68,7 +74,15 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedRequest = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+        ]);
+
+        Customer::where('id', $id)->update($validatedRequest);
+
+        return redirect(route('customer.edit', $id))->with('success', 'Success');
+
     }
 
     /**
@@ -76,6 +90,9 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Customer::where('id', $id)->delete();
+
+        return redirect(route('customer.index'))->with('success', 'Success');
+
     }
 }
