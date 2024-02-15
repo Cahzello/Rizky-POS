@@ -23,15 +23,29 @@
                 </div>
 
             </div>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <p>Error. Please verify and check again.</p>
+                </div>
+            @endif
+            @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
         <div class="card-body">
             <div class="table-responsive-md">
                 <table class="table table-bordered table-hover text-center" style="width: 100%;">
                     <thead class="thead-dark">
                         <tr>
-                            <th>No</th>
-                            <th>Category Name</th>
-                            <th colspan="2">Actions</th>
+                            <th rowspan="2" class="align-middle">No</th>
+                            <th rowspan="2" class="align-middle">Category Name</th>
+                            <th colspan="2" class="align-middle">Actions</th>
+                        </tr>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,13 +55,15 @@
                                     <td style="width: 5%;">{{ $key + 1 }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Edit Transactions" class="btn btn-warning"><i
+                                        <a href="{{route('category.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square " ></i></a>
                                     </td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Delete Transactions" class="btn btn-danger"><i
-                                                class="fas fa-trash "></i></a>
-
+                                        <form action="{{route('category.destroy', $item->id)}}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button href="" title="Delete" class="btn btn-danger" onclick="return confirm('Do you want to delete this data?')"><i class="fas fa-trash "></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

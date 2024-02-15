@@ -8,7 +8,7 @@
             </span>
             <span class="text">Go Back</span>
         </a>
-        <h1 class="h3 mb-0 text-gray-800">Create Category</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Category</h1>
     </div>
 
     <div class="card ">
@@ -32,7 +32,8 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="{{ route('category.store') }}" method="POST">
+            <form action="{{ route('category.update', $data->id) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div>
                     <label for="category-name">Category Name</label>
@@ -40,7 +41,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-filter"></i></span>
                         </div>
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name')}} "id="category-name" name="name" autofocus>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$data->name}} "id="category-name" name="name" autofocus>
                         @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
