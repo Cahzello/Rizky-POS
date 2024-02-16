@@ -35,13 +35,14 @@
             <form action="{{ route('items.store') }}" method="POST">
                 @csrf
                 <div class="has-validation">
-                    <label for="item-name">Item Name</label>
+                    <label for="name">Item Name</label>
                     <div class="input-group mb-3 w-50">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-dolly-flatbed"></i></span>
                         </div>
-                        <input type="text" class="form-control @error('item-name') is-invalid @enderror" value="{{old('item-name')}}" id="item-name" name="item-name" autofocus>
-                        @error('item-name')
+                        <input type="text" class="form-control @error('name') is-invalid @enderror"
+                            value="{{ old('name') }}" id="name" name="name" autofocus>
+                        @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -49,13 +50,14 @@
                     </div>
                 </div>
                 <div>
-                    <label for="item-price">Item Price</label>
+                    <label for="price">Item Price</label>
                     <div class="input-group mb-3 w-50">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
-                        <input type="number" class="form-control @error('item-price') is-invalid @enderror" value="{{old('item-price')}}" id="item-price" name="item-price">
-                        @error('item-price')
+                        <input type="number" class="form-control @error('price') is-invalid @enderror"
+                            value="{{ old('price') }}" id="price" name="price">
+                        @error('price')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -63,50 +65,55 @@
                     </div>
                 </div>
                 <div>
-                    <label for="item-stock">Item Stock Level</label>
-                    <div class="input-group mb-3 w-50">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
-                        </div>
-                        <input type="number" class="form-control @error('item-stock') is-invalid @enderror" value="{{old('item-stock')}}" id="item-stock" name="item-stock">
-                        @error('item-stock')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                <div>
-                    <label for="item-category">Item Category</label>
-                    <p>Haven't create category?<a href="{{route('category.index')}}"> Create one</a></p>
-                    <div class="input-group mb-3 w-50">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
-                        </div>
-                        <select class="form-control @error('item-category') is-invalid @enderror" id="item-category" name="item-category">
-                            <option value="">null</option>
-                            <option value="barang">Barang</option>
-                        </select>
-                        @error('item-category')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                </div>
-                <div>
-                    <label for="item-cost-price">Item Cost Price</label>
+                    <label for="cost-price">Item Cost Price</label>
                     <div class="input-group mb-3 w-50">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-coins"></i></span>
                         </div>
-                        <input type="number" class="form-control @error('item-cost-price') is-invalid @enderror" value="{{old('item-name')}}" id="item-cost-price" name="item-cost-price">
-                        @error('item-cost-price')
+                        <input type="number" class="form-control @error('cost_price') is-invalid @enderror"
+                            value="{{ old('cost_price') }}" id="cost-price" name="cost_price">
+                        @error('cost_price')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
+                </div>
+                <div>
+                    <label for="stock">Item Stock Level</label>
+                    <div class="input-group mb-3 w-50">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                        </div>
+                        <input type="number" class="form-control @error('stock') is-invalid @enderror"
+                            value="{{ old('stock_level') }}" id="stock" name="stock_level">
+                        @error('stock_level')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div>
+                    <label for="category">Item Category</label>
+                    <div class="input-group mb-3 w-50">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
+                        </div>
+                        <select class="form-control @error('category') is-invalid @enderror" id="category"
+                            name="categories_id">
+                            <option value="">null</option>
+                            @foreach ($data as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('category')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <p>Haven't create category?<a href="{{ route('category.index') }}"> Create one</a></p>
                 </div>
                 <input type="submit" class="btn btn-primary">
             </form>

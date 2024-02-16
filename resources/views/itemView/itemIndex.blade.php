@@ -42,13 +42,17 @@
                 <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
                     <thead class="thead-dark">
                         <tr>
-                            <th>No</th>
-                            <th>Nama Item</th>
-                            <th>Stock</th>
-                            <th>Price</th>
-                            <th>Cost Price</th>
-                            <th>Category</th>
+                            <th rowspan="2" class="align-middle">No</th>
+                            <th rowspan="2" class="align-middle">Nama Item</th>
+                            <th rowspan="2" class="align-middle">Stock</th>
+                            <th rowspan="2" class="align-middle">Price</th>
+                            <th rowspan="2" class="align-middle">Cost Price</th>
+                            <th rowspan="2" class="align-middle">Category</th>
                             <th colspan="2">Actions</th>
+                        </tr>
+                        <tr>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,13 +65,13 @@
                                     <td>{{$item->stock_level}}</td>
                                     <td>Rp {{number_format($item->price)}}</td>
                                     <td>Rp {{number_format($item->cost_price)}}</td>
-                                    <td>Unknown</td>
+                                    <td>{{ $category[$key]}}</td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Edit Data" class="btn btn-warning"><i
+                                        <a href="" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square"></i> </a>
                                     </td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Delete Data" class="btn btn-danger"><i
+                                        <a href="" title="Delete" class="btn btn-danger"><i
                                                 class="fas fa-trash"></i>
                                             </a>
 
@@ -76,7 +80,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="6">No Data</td>
+                                <td colspan="8">No Data</td>
                             </tr>
                         @endif
 

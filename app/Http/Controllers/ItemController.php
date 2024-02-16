@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -11,13 +12,17 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        $nama_category = [];
         $data = Item::get()->all();
-
+        foreach ($data as $key => $value) {
+            $nama_category[$key] = $value->categories->name;
+        }
         return view('itemView.itemIndex',[
             'isLogin' => false,
             'active' => 'item',
-            'data' => $data
+            'data' => $data,
+            'category' => $nama_category
         ]);
     }
 
@@ -25,10 +30,13 @@ class ItemController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    {   
+        $data = Categories::get()->all();
+        // dd($data);
         return view('itemView.itemCreate',[
             'isLogin' => false,
-            'active' => 'item'
+            'active' => 'item',
+            'data' => $data
         ]);
     }
 
@@ -39,12 +47,14 @@ class ItemController extends Controller
     {
         // dd($request);    
         $validatedRequest = $request->validate([
-            'item-name' => 'required|string',
-            'item-price' => 'required|numeric',
-            'item-stock' => 'required|numeric',
-            'item-category' => 'required',
-            'item-cost-price' => 'required|numeric',
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'stock_level' => 'required|numeric',
+            'categories_id' => 'required',
+            'cost_price' => 'required|numeric',
         ]);
+
+        Item::create($validatedRequest);
 
         return redirect(route('items.create'))->with('success', 'berhasil kayanya');
     }
