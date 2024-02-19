@@ -8,7 +8,7 @@
             </span>
             <span class="text">Go Back</span>
         </a>
-        <h1 class="h3 mb-0 text-gray-800">Input Data Item</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Data Item</h1>
     </div>
 
     <div class="card ">
@@ -32,7 +32,8 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="{{ route('items.store') }}" method="POST">
+            <form action="{{ route('items.update', $data->id) }}" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="has-validation">
                     <label for="name">Item Name</label>
@@ -41,7 +42,7 @@
                             <span class="input-group-text"><i class="fas fa-dolly-flatbed"></i></span>
                         </div>
                         <input type="text" class="form-control @error('name') is-invalid @enderror"
-                            value="{{ old('name') }}" id="name" name="name" autofocus>
+                            value="{{ $data->name }}" id="name" name="name" autofocus>
                         @error('name')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -56,7 +57,7 @@
                             <span class="input-group-text"><i class="fas fa-money-bill-wave"></i></span>
                         </div>
                         <input type="number" class="form-control @error('price') is-invalid @enderror"
-                            value="{{ old('price') }}" id="price" name="price">
+                            value="{{ number_format($data->price, 0, '', '') }}" id="price" name="price">
                         @error('price')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -71,7 +72,7 @@
                             <span class="input-group-text"><i class="fas fa-coins"></i></span>
                         </div>
                         <input type="number" class="form-control @error('cost_price') is-invalid @enderror"
-                            value="{{ old('cost_price') }}" id="cost-price" name="cost_price">
+                            value="{{ number_format($data->cost_price, 0, '', '') }}" id="cost-price" name="cost_price">
                         @error('cost_price')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -86,7 +87,7 @@
                             <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                         </div>
                         <input type="number" class="form-control @error('stock') is-invalid @enderror"
-                            value="{{ old('stock_level') }}" id="stock" name="stock_level">
+                            value="{{ $data->stock_level }}" id="stock" name="stock_level">
                         @error('stock_level')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -103,8 +104,8 @@
                         <select class="form-control @error('category') is-invalid @enderror" id="category"
                             name="categories_id">
                             <option value="NULL">Select Category</option>
-                            @foreach ($data as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @foreach ($categories as $item)
+                                <option @if ($item->id == $data->categories_id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
                             @endforeach
                         </select>
                         @error('category')

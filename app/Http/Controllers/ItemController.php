@@ -72,7 +72,14 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Item::find($id);
+        $categories = Categories::get()->all();
+        return view('itemView.itemEdit',[
+            'isLogin' => false,
+            'active' => 'item',
+            'data' => $data,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -80,7 +87,17 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedRequest = $request->validate([
+            'name' => 'required|string',
+            'price' => 'required|numeric',
+            'stock_level' => 'required|numeric',
+            'categories_id' => 'required',
+            'cost_price' => 'required|numeric',
+        ]);
+
+        Item::where('id', $id)->update($validatedRequest);
+
+        return redirect(route('items.index', '#data_' . $id))->with('success', 'Data Successfully Updated');
     }
 
     /**
@@ -88,6 +105,8 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Item::where('id', $id)->delete();
+
+        return redirect(route('items.index'))->with('success', 'Data Successfully Deleted');
     }
 }

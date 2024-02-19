@@ -59,7 +59,7 @@
 
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
-                                <tr>
+                                <tr id="{{ 'data_' . $item->id}}">
                                     <td style="width: 5%;">{{ $key+1 }}</td>
                                     <td>{{$item->name}}</td>
                                     <td>{{$item->stock_level}}</td>
@@ -67,15 +67,17 @@
                                     <td>Rp {{number_format($item->cost_price)}}</td>
                                     <td>{{ $category[$key]}}</td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Edit" class="btn btn-warning"><i
+                                        <a href="{{route('items.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square"></i> </a>
                                     </td>
                                     <td style="width: 10%;">
-                                        <a href="" title="Delete" class="btn btn-danger"><i
-                                                class="fas fa-trash"></i>
-                                            </a>
-
-                                    </td>
+                                        <form action="{{ route('items.destroy', $item->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button title="Delete" class="btn btn-danger"
+                                                onclick="return confirm('Are you want to delete this data?')"><i
+                                                    class="fas fa-trash "></i></button>
+                                        </form>                                    </td>
                                 </tr>
                             @endforeach
                         @else
