@@ -14,14 +14,14 @@ class ItemController extends Controller
     public function index()
     {   
         $nama_category = [];
-        $data = Item::get()->all();
-        foreach ($data as $key => $value) {
+        $filtered_data = Item::orderBy('created_at', 'desc')->get();
+        foreach ($filtered_data as $key => $value) {
             $nama_category[$key] = $value->categories->name;
         }
         return view('itemView.itemIndex',[
             'isLogin' => false,
             'active' => 'item',
-            'data' => $data,
+            'data' => $filtered_data,
             'category' => $nama_category
         ]);
     }

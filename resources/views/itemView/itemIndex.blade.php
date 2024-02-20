@@ -62,7 +62,7 @@
                                 <tr id="{{ 'data_' . $item->id}}">
                                     <td style="width: 5%;">{{ $key+1 }}</td>
                                     <td>{{$item->name}}</td>
-                                    <td>{{$item->stock_level}}</td>
+                                    <td {{$item->stock_level == 0 ? 'class=table-danger' : ''}}>{{$item->stock_level}}</td>
                                     <td>Rp {{number_format($item->price)}}</td>
                                     <td>Rp {{number_format($item->cost_price)}}</td>
                                     <td>{{ $category[$key]}}</td>
