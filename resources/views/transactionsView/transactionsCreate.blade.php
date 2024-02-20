@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="card-body col-sm-4">
-                <table class="table table-hover text-center" style="width: 100%">
+                <table class="table table-hover text-center" id="calculation" style="width: 100%">
                     <tr>
                         <th>Item</th>
                         <th>Quantity</th>
@@ -119,5 +119,64 @@
                 inputField.value = currentValue - 1;
             }
         }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            function create_list() {
+                // Create a new row
+                var row = $('<tr>');
+
+                // Add the first cell with the static string 'Milo'
+                var cell1 = $('<td>').text('milo');
+                row.append(cell1);
+
+                // Add the second cell with two buttons and an input field
+                var cell2 = $('<td>').css('width', '80%');
+
+                // Create the decrement button
+                var decrementButton = $('<button>').addClass('btn btn-outline-primary')
+                    .append($('<i>').addClass('fas fa-minus-circle'))
+                    .click(function() {
+                        decrementQuantity('qty-');
+                    });
+                cell2.append(decrementButton);
+
+                // Create the input field
+                var input = $('<input>').attr('id', 'qty-').attr('type', 'number').css('width', '40%').val(Math
+                    .floor(Math
+                        .random() * 4) + 1);
+                cell2.append(input);
+
+                // Create the increment button
+                var incrementButton = $('<button>').addClass('btn btn-outline-primary')
+                    .append($('<i>').addClass('fas fa-plus-circle'))
+                    .click(function() {
+                        incrementQuantity('qty-');
+                    });
+                cell2.append(incrementButton);
+
+                row.append(cell2);
+
+                // Add the third cell with the static string '50000'
+                var cell3 = $('<td>').text('50000');
+                row.append(cell3);
+
+                // Add the fourth cell with the trash button
+                var cell4 = $('<td>');
+                var trashButton = $('<a>').addClass('btn btn-danger').append($('<i>').addClass('fas fa-trash'));
+                trashButton.click(function(event) {
+                    event.preventDefault(); // Prevent the default action of the anchor tag
+                    $(this).parent().parent().remove()
+                });
+                cell4.append(trashButton);
+                row.append(cell4);
+
+                // Append the row to the table
+                $('#calculation').append(row);
+
+            }
+
+        });
     </script>
 @endsection
