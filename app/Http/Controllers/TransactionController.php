@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -22,9 +23,12 @@ class TransactionController extends Controller
      */
     public function create()
     {
+        $data_item = Item::get()->all();
+        // dd($data_item);
         return view('transactionsView.transactionsCreate', [
             'isLogin' => false,
-            'active' => 'transactions'
+            'active' => 'transactions',
+            'data_item' => $data_item
         ]);
     }
 
@@ -38,7 +42,6 @@ class TransactionController extends Controller
         ]);
 
         return redirect(route('items.create'))->with('success', 'berhasil kayanya');
-
     }
 
     /**

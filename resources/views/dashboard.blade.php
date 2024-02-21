@@ -105,9 +105,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Latest Item Inputted</h6>
                 </div>
                 <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                        custom components and custom utility classes.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta quis nam, obcaecati ea neque sequi asperiores dignissimos, ex corporis dolores fugiat eius vel autem unde labore, alias dicta officiis saepe.</p>
                     <p class="mb-0">Before working with this theme, you should become familiar with
                         the
                         Bootstrap framework, especially the utility classes.</p>
@@ -124,9 +122,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Latest Transactions Created</h6>
                 </div>
                 <div class="card-body">
-                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
-                        CSS bloat and poor page performance. Custom CSS classes are used to create
-                        custom components and custom utility classes.</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate ea error quasi provident impedit officia qui, praesentium animi dolorum quis quam est, expedita distinctio cupiditate non sapiente, hic atque doloremque.</p>
                     <p class="mb-0">Before working with this theme, you should become familiar with
                         the
                         Bootstrap framework, especially the utility classes.</p>

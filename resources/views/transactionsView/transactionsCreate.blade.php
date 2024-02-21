@@ -32,57 +32,53 @@
             @endif
         </div>
         <div class="row">
-            <div class="card-body col-sm-8">
+            <div class="card-body col-lg-7">
                 <div class="container">
                     <div class="row">
-                        @for ($i = 1; $i < 9; $i++)
-                            <div class="col-sm-3 p-2">
+                        @foreach ($data_item as $item)
+                            <div class="col-lg-4 p-2">
                                 <div class="card shadow-sm">
                                     <img src="/img/milo.jpg" style="object-fit: cover;" class="rounded" alt="tadfs"
                                         height="140px" width="100%">
                                     <div class="card-body p-2">
-                                        <p class="h6">Milo</p>
+                                        <p class="h6">{{ $item->name }}</p>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <small class="text-body-secondary">Stock:</small>
-                                                <small class="text-body-secondary">{{ rand(1, 877) }}</small>
+                                                <small class="text-body-secondary">{{ $item->stock_level }}</small>
+                                                <br>
+                                                <small class="text-body-secondary">price:</small>
+                                                <small class="text-body-secondary">{{ number_format($item->price) }}</small>
                                             </div>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-sm btn-outline-primary">Add</button>
+                                                <button type="button"
+                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price) }}')"
+                                                    class="btn btn-sm btn-outline-primary">Add</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        @endfor
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <div class="card-body col-sm-4">
+            <div class="card-body col-lg-5">
                 <table class="table table-hover text-center" id="calculation" style="width: 100%">
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Delete</th>
-                    </tr>
-                    @for ($i = 1; $i < 5; $i++)
+                    <thead>
                         <tr>
-                            <td>Milo</td>
-                            <td>
-                                <button class="btn btn-outline-primary"
-                                    onclick="decrementQuantity('qty-{{ $i }}')"><i
-                                        class="fas fa-minus-circle"></i></button>
-                                <input id="qty-{{ $i }}" type="number" value="{{ rand(1, 4) }}"
-                                    style="width: 40%">
-                                <button class="btn btn-outline-primary"
-                                    onclick="incrementQuantity('qty-{{ $i }}')"><i
-                                        class="fas fa-plus-circle"></i></button>
-                            </td>
-                            <td>50000</td>
-                            <td><a href="" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Delete</th>
                         </tr>
-                    @endfor
+
+                    </thead>
+                    <tbody id="calculation_data">
+                        <tr>
+                            <td colspan="4">The list is currently empty.</td>
+                        </tr>
+                    </tbody>
                 </table>
 
                 <hr>
@@ -122,61 +118,95 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            function create_list() {
-                // Create a new row
-                var row = $('<tr>');
+        let addedIds = new Set();
 
-                // Add the first cell with the static string 'Milo'
-                var cell1 = $('<td>').text('milo');
-                row.append(cell1);
+        function create_list(id, name, price) {
+            $(document).ready(() => {
+                if (addedIds.has(id)) {
+                    alert('Duplicate entry is not allowed.');
+                    return;
+                }
 
-                // Add the second cell with two buttons and an input field
-                var cell2 = $('<td>').css('width', '80%');
+                addedIds.add(id);
 
-                // Create the decrement button
-                var decrementButton = $('<button>').addClass('btn btn-outline-primary')
-                    .append($('<i>').addClass('fas fa-minus-circle'))
-                    .click(function() {
-                        decrementQuantity('qty-');
+                let tbody = $('#calculation_data');
+                let emptyMessageRow = tbody.find('tr td:contains("The list is currently empty.")');
+                console.log(tbody.children());
+                if (tbody.children().length == 1 && emptyMessageRow.length == 0) {
+                    tbody.append('<tr><td colspan="4">The list is currently empty.</td></tr>');
+                }
+
+                create_calc(id, name, price, emptyMessageRow);
+
+                function create_calc(id, name, price) {
+                    let row = $('<tr>');
+
+                    let cell1 = $('<td>').text(name);
+                    row.append(cell1);
+
+                    let cell2 = $('<td>').css('width', 'auto');
+
+                    let input = $('<input>').attr('id', `qty-${id}`).attr('type', 'number').attr('value', 1).css(
+                        'width', '60%');
+                    cell2.append(input);
+
+                    let jarak = $('<br>');
+                    cell2.append(jarak);
+
+                    let decrementButton = $('<button>').addClass('btn btn-outline-primary')
+                        .append($('<i>').addClass('fas fa-minus-circle'))
+                        .click(function() {
+                            decrementQuantity(`qty-${id}`);
+                        });
+                    cell2.append(decrementButton);
+
+
+                    let incrementButton = $('<button>').addClass('btn btn-outline-primary')
+                        .append($('<i>').addClass('fas fa-plus-circle'))
+                        .click(function() {
+                            incrementQuantity(`qty-${id}`);
+                        });
+                    cell2.append(incrementButton);
+
+                    row.append(cell2);
+
+                    let cell3 = $('<td>').text(price);
+                    row.append(cell3);
+
+                    let cell4 = $('<td>');
+                    let trashButton = $('<a>').addClass('btn btn-danger').append($('<i>').addClass('fas fa-trash'));
+                    trashButton.click(function(event) {
+                        event.preventDefault();
+                        addedIds.delete(id);
+                        $(this).parent().parent().remove()
                     });
-                cell2.append(decrementButton);
+                    cell4.append(trashButton);
+                    row.append(cell4);
 
-                // Create the input field
-                var input = $('<input>').attr('id', 'qty-').attr('type', 'number').css('width', '40%').val(Math
-                    .floor(Math
-                        .random() * 4) + 1);
-                cell2.append(input);
+                    if (emptyMessageRow.length > 0) {
+                        emptyMessageRow.parent().remove();
+                    }
 
-                // Create the increment button
-                var incrementButton = $('<button>').addClass('btn btn-outline-primary')
-                    .append($('<i>').addClass('fas fa-plus-circle'))
-                    .click(function() {
-                        incrementQuantity('qty-');
-                    });
-                cell2.append(incrementButton);
+                    $('#calculation').append(row);
+                }
+            });
 
-                row.append(cell2);
+        }
 
-                // Add the third cell with the static string '50000'
-                var cell3 = $('<td>').text('50000');
-                row.append(cell3);
 
-                // Add the fourth cell with the trash button
-                var cell4 = $('<td>');
-                var trashButton = $('<a>').addClass('btn btn-danger').append($('<i>').addClass('fas fa-trash'));
-                trashButton.click(function(event) {
-                    event.preventDefault(); // Prevent the default action of the anchor tag
-                    $(this).parent().parent().remove()
-                });
-                cell4.append(trashButton);
-                row.append(cell4);
 
-                // Append the row to the table
-                $('#calculation').append(row);
+        function remove_item(id) {
+            $(document).ready(() => {
+                // Remove the item with the given id
+                $(`#qty-${id}`).closest('tr').remove();
 
-            }
-
-        });
+                // Check if the list is empty after removal
+                let tbody = $('#calculation_data');
+                if (tbody.children().length === 0) {
+                    // If the list is empty, add the explanation message
+                    tbody.append('<tr><td colspan="4">The list is currently empty.</td></tr>');
+                }
+            });
+        }
     </script>
 @endsection
