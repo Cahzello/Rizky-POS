@@ -1,8 +1,5 @@
 let addedIds = new Set();
 let tbody = $("#calculation_data");
-let emptyMessageRow = tbody.find(
-    'tr td:contains("The list is currently empty.")'
-);
 
 function create_list(id, name, price) {
     $(document).ready(() => {
@@ -10,23 +7,29 @@ function create_list(id, name, price) {
             alert("Duplicate entry is not allowed.");
             return;
         }
-
+        let emptyMessageRow = tbody.find(
+            'tr td:contains("The list is currently empty.")'
+        );
         addedIds.add(id);
-
-        check_list();
-        create_calc(id, name, price);
+        check_list(emptyMessageRow);
+        // console.log(tbody.children())
+        console.log(emptyMessageRow);
+        create_calc(id, name, price, emptyMessageRow);
     });
 }
 
-function check_list() {
-    if (addedIds.size == 0) {
+function check_list(param) {
+    console.log("func check");  
+    console.log(param);
+
+    if (addedIds.size == 0 && param.length == 1) {
         tbody.append(
             '<tr><td colspan="4">The list is currently empty.</td></tr>'
         );
     }
 }
 
-function create_calc(id, name, price) {
+function create_calc(id, name, price, emptyMessageRow) {
     let row = $("<tr>");
 
     let cell1 = $("<td>").text(name);
@@ -73,7 +76,9 @@ function create_calc(id, name, price) {
         event.preventDefault();
         addedIds.delete(id);
         console.log(addedIds);
-        check_list();
+        check_list(emptyMessageRow);
+        console.log(emptyMessageRow.length);
+
         $(this).parent().parent().remove();
     });
     cell4.append(trashButton);
@@ -99,4 +104,3 @@ function decrementQuantity(inputId) {
         inputField.value = currentValue - 1;
     }
 }
-
