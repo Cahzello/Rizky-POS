@@ -13,11 +13,12 @@ class CategoryController extends Controller
     public function index()
     {
         $data = Categories::get()->all();
+        $paginate = Categories::paginate(10);
 
         return view('categoryView.categoryIndex', [
             'isLogin' => false,
             'active' => 'category',
-            'data' => $data
+            'data' => $paginate
         ]);
     }
 

@@ -52,7 +52,7 @@
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr>
-                                    <td style="width: 5%;">{{ $key + 1 }}</td>
+                                    <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>
                                     <td>{{ $item->name }}</td>
                                     <td style="width: 10%;">
                                         <a href="{{route('category.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
@@ -74,6 +74,7 @@
                         @endif
                     </tbody>
                 </table>
+                {{$data->links('pagination::bootstrap-4')}}
             </div>
         </div>
     </div>

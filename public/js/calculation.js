@@ -1,5 +1,4 @@
 let addedIds = new Set();
-let tbody = $("#calculation_data");
 
 function create_list(id, name, price) {
     $(document).ready(() => {
@@ -7,29 +6,27 @@ function create_list(id, name, price) {
             alert("Duplicate entry is not allowed.");
             return;
         }
-        let emptyMessageRow = tbody.find(
-            'tr td:contains("The list is currently empty.")'
-        );
+        let tbody = $("#calculation_data");
+
         addedIds.add(id);
-        check_list(emptyMessageRow);
-        // console.log(tbody.children())
-        console.log(emptyMessageRow);
-        create_calc(id, name, price, emptyMessageRow);
+        updateEmptyMessage(tbody);
+        create_calc(id, name, price);
     });
 }
 
-function check_list(param) {
-    console.log("func check");  
-    console.log(param);
-
-    if (addedIds.size == 0 && param.length == 1) {
-        tbody.append(
-            '<tr><td colspan="4">The list is currently empty.</td></tr>'
-        );
+function updateEmptyMessage(tbody) {
+    let emptyMessageRow = tbody.find('tr td:contains("The list is currently empty.")');
+    if (addedIds.size >  0 && emptyMessageRow.length >  0) {
+        // If there are items and the empty message is present, remove the empty message
+        emptyMessageRow.parent().remove();
+    } else if (addedIds.size ==  0 && emptyMessageRow.length ==  0) {
+        // If there are no items and the empty message is not present, add the empty message
+        tbody.append('<tr><td colspan="4">The list is currently empty.</td></tr>');
     }
 }
 
-function create_calc(id, name, price, emptyMessageRow) {
+function create_calc(id, name, price) {
+    let tbody = $("#calculation_data");
     let row = $("<tr>");
 
     let cell1 = $("<td>").text(name);
@@ -40,7 +37,7 @@ function create_calc(id, name, price, emptyMessageRow) {
     let input = $("<input>")
         .attr("id", `qty-${id}`)
         .attr("type", "number")
-        .attr("value", 1)
+        .attr("value",  1)
         .css("width", "60%");
     cell2.append(input);
 
@@ -75,18 +72,11 @@ function create_calc(id, name, price, emptyMessageRow) {
     trashButton.click(function (event) {
         event.preventDefault();
         addedIds.delete(id);
-        console.log(addedIds);
-        check_list(emptyMessageRow);
-        console.log(emptyMessageRow.length);
-
+        updateEmptyMessage(tbody);
         $(this).parent().parent().remove();
     });
     cell4.append(trashButton);
     row.append(cell4);
-
-    if (emptyMessageRow.length > 0) {
-        emptyMessageRow.parent().remove();
-    }
 
     $("#calculation").append(row);
 }
@@ -94,13 +84,13 @@ function create_calc(id, name, price, emptyMessageRow) {
 function incrementQuantity(inputId) {
     var inputField = document.getElementById(inputId);
     var currentValue = parseInt(inputField.value);
-    inputField.value = currentValue + 1;
+    inputField.value = currentValue +  1;
 }
 
 function decrementQuantity(inputId) {
     var inputField = document.getElementById(inputId);
     var currentValue = parseInt(inputField.value);
-    if (currentValue > 1) {
-        inputField.value = currentValue - 1;
+    if (currentValue >  1) {
+        inputField.value = currentValue -  1;
     }
 }
