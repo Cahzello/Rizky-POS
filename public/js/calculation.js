@@ -73,7 +73,8 @@ function create_calc(id, name, price) {
 
     row.append(cell2);
 
-    let cell3 = $("<td>").text(price).attr("id", `price`);
+    let displayPrice = Intl.NumberFormat(['ban', 'id'], {style: 'currency', currency: 'IDR'}).format(price);
+    let cell3 = $("<td>").text(displayPrice).attr("id", `price`);
     row.append(cell3);
 
     let cell4 = $("<td>");
