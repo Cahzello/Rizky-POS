@@ -43,6 +43,10 @@ function create_calc(id, name, price) {
         .attr("id", `qty-${id}`)
         .attr("type", "number")
         .attr("value", 1)
+        .change((event) => {
+            let inputValue = event.target.value;
+            addItem(id, price, inputValue);
+        })
         .css("width", "60%");
     cell2.append(input);
 
@@ -54,7 +58,7 @@ function create_calc(id, name, price) {
         .append($("<i>").addClass("fas fa-minus-circle"))
         .click(function () {
             decrementQuantity(`qty-${id}`);
-            addItem(id, price, 1);
+            // addItem(id, price, 1);
         });
     cell2.append(decrementButton);
 
@@ -63,7 +67,7 @@ function create_calc(id, name, price) {
         .append($("<i>").addClass("fas fa-plus-circle"))
         .click(function () {
             incrementQuantity(`qty-${id}`);
-            addItem(id, price, 1);
+            // addItem(id, price, 1);
         });
     cell2.append(incrementButton);
 
@@ -93,7 +97,7 @@ function create_calc(id, name, price) {
 function addItem(id, price, quantity) {
     let item = total.find((item) => item.id === id);
     if (item) {
-        item.quantity += quantity;
+        item.quantity = quantity;
     } else {
         total.push({ id: id, price: parseFloat(price), quantity: quantity });
     }
@@ -143,17 +147,19 @@ function sumPrice() {
 }
 
 function incrementQuantity(inputId) {
-    var inputField = document.getElementById(inputId);
-    var currentValue = parseInt(inputField.value);
+    let inputField = document.getElementById(inputId);
+    let currentValue = parseInt(inputField.value);
     inputField.value = currentValue + 1;
+    inputField.dispatchEvent(new Event('change'));
 }
 
 function decrementQuantity(inputId) {
-    var inputField = document.getElementById(inputId);
-    var currentValue = parseInt(inputField.value);
+    let inputField = document.getElementById(inputId);
+    let currentValue = parseInt(inputField.value);
     if (currentValue > 1) {
         inputField.value = currentValue - 1;
     }
+    inputField.dispatchEvent(new Event('change'));
 }
 
 function updatePriceView(updatedPrice) {
