@@ -52,7 +52,7 @@
                                             </div>
                                             <div class="btn-group">
                                                 <button type="button"
-                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '.') }}')"
+                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}')"
                                                     class="btn btn-sm btn-outline-primary">Add</button>
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@
                         <p>Subtotal:</p>
                     </span>
                     <span class="col text-right">
-                        <p id="subtotal">470.000</p>
+                        <p id="subtotal">0</p>
                     </span>
                 </div>
 

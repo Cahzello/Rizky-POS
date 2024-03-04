@@ -91,7 +91,7 @@ function create_calc(id, name, price) {
 }
 
 function addItem(id, price, quantity) {
-    let item = total.find(item => item.id === id);
+    let item = total.find((item) => item.id === id);
     if (item) {
         item.quantity += quantity;
     } else {
@@ -103,18 +103,18 @@ function addItem(id, price, quantity) {
 }
 
 function removeItem(id) {
-    let index = total.findIndex(item => item.id === id);
+    let index = total.findIndex((item) => item.id === id);
     console.log(index);
     if (index !== -1) {
         total.splice(index, 1);
     }
 
-    console.log(total); 
+    console.log(total);
     console.log(sumPrice());
 }
 
 function increaseQuantity(id) {
-    let item = total.find(item => item.id === id);
+    let item = total.find((item) => item.id === id);
     if (item) {
         item.quantity++;
     }
@@ -124,7 +124,7 @@ function increaseQuantity(id) {
 }
 
 function decreaseQuantity(id) {
-    let item = total.find(item => item.id === id);
+    let item = total.find((item) => item.id === id);
     if (item && item.quantity > 0) {
         item.quantity--;
     }
@@ -133,12 +133,13 @@ function decreaseQuantity(id) {
     console.log(total);
 }
 
-function sumPrice() {  
+function sumPrice() {
     let totalPrice = total.reduce((total, item) => {
-        return total + (item.price * item.quantity);
+        return total + item.price * item.quantity;
     }, 0);
-
-    return totalPrice.toFixed(3);
+    let finalPrice = totalPrice.toFixed(0);
+    updatePriceView(finalPrice);
+    return finalPrice;
 }
 
 function incrementQuantity(inputId) {
@@ -154,3 +155,17 @@ function decrementQuantity(inputId) {
         inputField.value = currentValue - 1;
     }
 }
+
+function updatePriceView(updatedPrice) {
+    let displayPrice = updatedPrice === 0 ? 0 : updatedPrice;
+    let priceView = document.getElementById("subtotal");
+    priceView.innerText = Intl.NumberFormat(['ban', 'id'], {style: 'currency', currency: 'IDR'}).format(displayPrice);
+}
+window.addEventListener("load", () => {
+    updatePriceView(0);
+});
+
+window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+    e.returnValue = true;
+});
