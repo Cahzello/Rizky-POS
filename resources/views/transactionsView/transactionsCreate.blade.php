@@ -48,11 +48,11 @@
                                                 <small class="text-body-secondary">{{ $item->stock_level }}</small>
                                                 <br>
                                                 <small class="text-body-secondary">price:</small>
-                                                <small class="text-body-secondary">{{ number_format($item->price) }}</small>
+                                                <small class="text-body-secondary">{{ number_format($item->price, 0, '.', '.') }}</small>
                                             </div>
                                             <div class="btn-group">
                                                 <button type="button"
-                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price) }}')"
+                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '.') }}')"
                                                     class="btn btn-sm btn-outline-primary">Add</button>
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@
                         <p>Subtotal:</p>
                     </span>
                     <span class="col text-right">
-                        <p>470.000</p>
+                        <p id="subtotal">470.000</p>
                     </span>
                 </div>
 
