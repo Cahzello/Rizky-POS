@@ -1,6 +1,11 @@
 let addedIds = new Set();
 let total = [];
 
+window.addEventListener("beforeunload", (e) => {
+    e.preventDefault();
+    e.returnValue = "Leaving Site?";
+});
+
 function create_list(id, name, price) {
     $(document).ready(() => {
         if (addedIds.has(id)) {
@@ -172,7 +177,4 @@ window.addEventListener("load", () => {
     updatePriceView(0);
 });
 
-window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
-    e.returnValue = true;
-});
+
