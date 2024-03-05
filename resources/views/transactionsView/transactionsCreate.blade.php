@@ -36,8 +36,11 @@
                 <div class="container">
                     <div class="row">
                         @if (empty($data_item))
-                            <div class="justify-content-center align-items-center">
-                                <h2>No Item Currently Available</h2>
+                            <div class="col-lg-12">
+                                <div class="d-flex justify-content-center align-items-center flex-column">
+                                    <h3>No Items Added</h3>
+                                    <a href="{{route('items.create')}}" class="btn btn-primary">Create Items</a>
+                                </div>
                             </div>
                         @else
                             @foreach ($data_item as $item)

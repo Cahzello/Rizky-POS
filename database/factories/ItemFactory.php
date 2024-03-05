@@ -22,6 +22,7 @@ class ItemFactory extends Factory
             'stock_level' => fake()->numberBetween(0, 30),
             'cost_price' => fake()->numberBetween(5999, 120999),
             'categories_id' => rand(1,2),
+            'users_id' => rand(1,2),
         ];
     }
 }
