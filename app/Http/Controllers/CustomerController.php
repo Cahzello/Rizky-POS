@@ -16,7 +16,6 @@ class CustomerController extends Controller
 
         return view('customerView.customerIndex', [
             'isLogin' => false,
-            'active' => 'users',
             'data' => $data
         ]);
     }
@@ -28,7 +27,6 @@ class CustomerController extends Controller
     {
         return view('customerView.customerCreate', [
             'isLogin' => false,
-            'active' => 'users'
         ]);
     }
 

@@ -14,8 +14,7 @@ class TransactionController extends Controller
     {
         return view('transactionsView.transactionsIndex', [
             'isLogin' => false,
-            'active' => 'transactions'
-        ]);
+    ]);
     }
 
     /**
@@ -27,7 +26,6 @@ class TransactionController extends Controller
         // dd($data_item);
         return view('transactionsView.transactionsCreate', [
             'isLogin' => false,
-            'active' => 'transactions',
             'data_item' => $data_item
         ]);
     }

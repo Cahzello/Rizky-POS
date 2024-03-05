@@ -20,7 +20,6 @@ class ItemController extends Controller
         }
         return view('itemView.itemIndex',[
             'isLogin' => false,
-            'active' => 'item',
             'data' => $filtered_data,
             'category' => $nama_category
         ]);
@@ -35,7 +34,6 @@ class ItemController extends Controller
         // dd($data);
         return view('itemView.itemCreate',[
             'isLogin' => false,
-            'active' => 'item',
             'data' => $data
         ]);
     }

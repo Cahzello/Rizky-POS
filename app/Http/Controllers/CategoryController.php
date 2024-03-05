@@ -17,7 +17,6 @@ class CategoryController extends Controller
 
         return view('categoryView.categoryIndex', [
             'isLogin' => false,
-            'active' => 'category',
             'data' => $paginate
         ]);
     }
@@ -29,7 +28,6 @@ class CategoryController extends Controller
     {
         return view('categoryView.categoryCreate', [
             'isLogin' => false,
-            'active' => 'category'
         ]);
     }
 
