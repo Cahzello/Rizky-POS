@@ -12,7 +12,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $data = Customer::get()->all();
+        $data = Customer::paginate(10);
 
         return view('customerView.customerIndex', [
             'isLogin' => false,

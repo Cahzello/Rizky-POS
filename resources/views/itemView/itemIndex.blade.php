@@ -60,7 +60,7 @@
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr id="{{ 'data_' . $item->id}}">
-                                    <td style="width: 5%;">{{ $key+1 }}</td>
+                                    <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>
                                     <td>{{$item->name}}</td>
                                     <td {{$item->stock_level == 0 ? 'class=table-danger' : ''}}>{{$item->stock_level}}</td>
                                     <td>Rp {{number_format($item->price)}}</td>
@@ -90,6 +90,7 @@
                     </tbody>
                 </table>
             </div>
+            {{$data->links('pagination::bootstrap-4')}}
         </div>
     </div>
 @endsection

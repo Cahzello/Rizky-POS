@@ -52,7 +52,7 @@
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr>
-                                    <td style="width: 5%;"> {{ $key + 1 }} </td>
+                                    <td style="width: 5%;"> {{ $data->firstItem() + $loop->index }} </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->email }}</td>
                                     <td style="width: 10%;">
@@ -79,6 +79,7 @@
                     </tbody>
                 </table>
             </div>
+            {{$data->links('pagination::bootstrap-4')}}
         </div>
     </div>
 @endsection

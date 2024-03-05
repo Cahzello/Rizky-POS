@@ -14,7 +14,7 @@ class ItemController extends Controller
     public function index()
     {   
         $nama_category = [];
-        $filtered_data = Item::orderBy('created_at', 'desc')->get();
+        $filtered_data = Item::paginate(10);
         foreach ($filtered_data as $key => $value) {
             $nama_category[$key] = $value->categories->name;
         }

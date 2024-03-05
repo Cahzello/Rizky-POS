@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="d-flex-column align-items-center justify-content-between mb-4">
-        <a href="{{ back() }}" class="btn btn-secondary btn-icon-split mb-2">
+        <a href="{{ route('category.index') }}" class="btn btn-secondary btn-icon-split mb-2">
             <span class="icon text-white-100">
                 <i class="fas fa-arrow-alt-circle-left"></i>
             </span>
@@ -10,7 +10,7 @@
         </a>
         <h1 class="h3 mb-0 text-gray-800">Create Category</h1>
     </div>
-
+    
     <div class="card ">
         <div class="card-header">
             <div class="row justify-content-between">
