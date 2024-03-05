@@ -35,31 +35,38 @@
             <div class="card-body col-lg-7">
                 <div class="container">
                     <div class="row">
-                        @foreach ($data_item as $item)
-                            <div class="col-lg-4 p-2">
-                                <div class="card shadow-sm">
-                                    <img src="/img/milo.jpg" style="object-fit: cover;" class="rounded" alt="tadfs"
-                                        height="140px" width="100%">
-                                    <div class="card-body p-2">
-                                        <p class="h6">{{ $item->name }}</p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <small class="text-body-secondary">Stock:</small>
-                                                <small class="text-body-secondary">{{ $item->stock_level }}</small>
-                                                <br>
-                                                <small class="text-body-secondary">price:</small>
-                                                <small class="text-body-secondary">{{ number_format($item->price, 0, '.', '.') }}</small>
-                                            </div>
-                                            <div class="btn-group">
-                                                <button type="button"
-                                                    onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}')"
-                                                    class="btn btn-sm btn-outline-primary">Add</button>
+                        @if (empty($data_item))
+                            <div class="justify-content-center align-items-center">
+                                <h2>No Item Currently Available</h2>
+                            </div>
+                        @else
+                            @foreach ($data_item as $item)
+                                <div class="col-lg-4 p-2">
+                                    <div class="card shadow-sm">
+                                        <img src="/img/milo.jpg" style="object-fit: cover;" class="rounded" alt="tadfs"
+                                            height="140px" width="100%">
+                                        <div class="card-body p-2">
+                                            <p class="h6">{{ $item->name }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <small class="text-body-secondary">Stock:</small>
+                                                    <small class="text-body-secondary">{{ $item->stock_level }}</small>
+                                                    <br>
+                                                    <small class="text-body-secondary">price:</small>
+                                                    <small
+                                                        class="text-body-secondary">{{ number_format($item->price, 0, '.', '.') }}</small>
+                                                </div>
+                                                <div class="btn-group">
+                                                    <button type="button"
+                                                        onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}')"
+                                                        class="btn btn-sm btn-outline-primary">Add</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
