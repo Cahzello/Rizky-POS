@@ -1,16 +1,16 @@
 let addedIds = new Set();
 let total = [];
 
-window.addEventListener("beforeunload", (e) => {
-    e.preventDefault();
-    e.returnValue = "Leaving Site?";
-});
+// window.addEventListener("beforeunload", (e) => {
+//     e.preventDefault();
+//     e.returnValue = "Leaving Site?";
+// });
 
 function create_list(id, name, price) {
     $(document).ready(() => {
         if (addedIds.has(id)) {
             alert("Duplicate entry is not allowed.");
-            return;
+            return; 
         }
         let tbody = $("#calculation_data");
 

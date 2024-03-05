@@ -22,8 +22,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $data_item = Item::get()->all();
-        // dd($data_item);
+        $data_item = Item::paginate(12);
+        // dd($data_item->total());
         return view('transactionsView.transactionsCreate', [
             'isLogin' => false,
             'data_item' => $data_item

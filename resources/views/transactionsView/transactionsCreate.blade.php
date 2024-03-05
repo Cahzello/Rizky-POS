@@ -34,8 +34,9 @@
         <div class="row">
             <div class="card-body col-lg-7">
                 <div class="container">
+                    {{$data_item->links('pagination::bootstrap-4')}}
                     <div class="row">
-                        @if (empty($data_item))
+                        @if ($data_item->total() <= 0)
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-center align-items-center flex-column">
                                     <h3>No Items Added</h3>
@@ -71,6 +72,7 @@
                             @endforeach
                         @endif
                     </div>
+                    {{$data_item->links('pagination::bootstrap-4')}}
                 </div>
             </div>
             <div class="card-body col-lg-5">
