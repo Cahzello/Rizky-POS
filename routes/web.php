@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
@@ -19,13 +20,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/register', [AuthController::class, 'viewRegister'])->name('register');
+
+Route::post('/register', [AuthController::class, 'register']);
+
 Route::get('/', [RoutingController::class, 'index'])->name('home');
 
 Route::get('/home', [RoutingController::class, 'index'])->name('home');
-
-Route::get('/login', [RoutingController::class, 'login'])->name('login');
-
-Route::get('/register', [RoutingController::class, 'register'])->name('register');
 
 Route::resource('/transactions', TransactionController::class);
 

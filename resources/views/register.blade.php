@@ -14,22 +14,40 @@
                         <span class="fa fa-user-o"></span>
                     </div>
                     <h3 class="text-center mb-4">Register</h3>
-                    <form action="#" class="login-form">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }} <br>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if (session()->has('loginError'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('loginError') }}
+                        </div>
+                    @endif
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('register') }}" method="POST" class="login-form">
+                        @csrf
                         <div class="form-group">
                             <label for="username">Username: </label>
-                            <input type="text" id="username" class="form-control rounded-left"
-                                placeholder="Input Username" required>
+                            <input type="text" id="username" name="username" class="form-control rounded-left"
+                                placeholder="Input Username">
                         </div>
                         <div class="form-group">
                             <label for="email">Email: </label>
-                            <input type="email" id="email" class="form-control rounded-left" placeholder="Input Email"
-                                required>
+                            <input type="email" id="email" name="email" class="form-control rounded-left"
+                                placeholder="Input Email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password: </label>
                             <div class="d-flex">
-                                <input type="password" id="password" class="form-control rounded-left"
-                                    placeholder="Input Password" required>
+                                <input type="password" id="password" name="password" class="form-control rounded-left"
+                                    placeholder="Input Password">
                                 <button class="btn btn-outline-primary" type="button" id="button-password"><i
                                         class="far fa-eye"></i></button>
 
@@ -38,8 +56,8 @@
                         <div class="form-group">
                             <label for="repeat_pw">Reenter Password: </label>
                             <div class="d-flex">
-                                <input type="password" id="repeat_pw" class="form-control rounded-left"
-                                    placeholder="Input Password Again" required>
+                                <input type="password" id="repeat_pw" name="repeatedpw" class="form-control rounded-left"
+                                    placeholder="Input Password Again">
                                 <button class="btn btn-outline-primary" type="button" id="button-password-repeat-pw"><i
                                         class="far fa-eye"></i></button>
                             </div>

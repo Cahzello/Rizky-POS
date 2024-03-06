@@ -14,17 +14,37 @@
                         <span class="fa fa-user-o"></span>
                     </div>
                     <h3 class="text-center mb-4">Login</h3>
-                    <form action="#" class="login-form">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }} <br>
+                            @endforeach
+                        </div>
+                    @endif
+                    @if (session()->has('loginError'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('loginError') }}
+                        </div>
+                    @endif
+                    @if (session()->has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('login')}}" method="POST" class="login-form">
+                        @csrf
                         <div class="form-group">
-                            <label for="username">Username: </label>
-                            <input type="text" id="username" class="form-control rounded-left" placeholder="Input Username" required>
+                            <label for="email">Email: </label>
+                            <input type="text" id="email" name="email" class="form-control rounded-left"
+                                placeholder="Input Email">
                         </div>
                         <div class="form-group">
                             <label for="password">Password: </label>
                             <div class="d-flex">
-                                <input type="password" id="password" class="form-control rounded-left" placeholder="Input Password" required>
+                                <input type="password" id="password" name="password" class="form-control rounded-left"
+                                    placeholder="Input Password">
                                 <button class="btn btn-outline-primary" type="button" id="button-password"><i
-                                    class="far fa-eye"></i></button>
+                                        class="far fa-eye"></i></button>
                             </div>
                         </div>
                         <div class="form-group">
@@ -33,12 +53,12 @@
                         <div class="form-group d-md-flex">
                             <div class="w-50">
                                 <label class="checkbox-wrap checkbox-primary">Remember Me
-                                    <input type="checkbox" checked>
+                                    <input name="checkBox" type="checkbox" checked>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="w-50 text-md-right">
-                                <a href="{{route('register')}}">Create Account</a>
+                                <a href="{{ route('register') }}">Create Account</a>
                             </div>
                         </div>
                     </form>
