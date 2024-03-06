@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('users_id')->constrained();
             $table->string('name', 255);
             $table->decimal('price', 15, 2);
-            $table->integer('stock_level')->default('0');
+            $table->bigInteger('stock_level')->default('0');
             $table->decimal('cost_price', 15, 2);
             $table->timestamps();
         });

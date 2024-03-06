@@ -49,7 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($data->total() > 0))
+                        @if ($data->total() > 0)
                             @foreach ($data as $key => $item)
                                 <tr>
                                     <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>

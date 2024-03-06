@@ -45,7 +45,7 @@
             <span>Customer Data</span></a>
     </li>
 
-    <li class="nav-item {{request()->routeIs('home') ? 'active' : ''}}">
+    <li class="nav-item {{request()->routeIs('report') ? 'active' : ''}}">
         <a class="nav-link" href="{{route('customer.index')}}">
             <i class="fas fa-fw fa-print"></i>
             <span>Generate Reports</span></a>
