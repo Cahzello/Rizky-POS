@@ -8,11 +8,21 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
+     * Get authicanted user id
+     */
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Customer::paginate(10);
+        $user_id = $this->getUserId();
+
+        $data = Customer::where('users_id', $user_id)->paginate(10);
 
         return view('customerView.customerIndex', [
             'isLogin' => false,

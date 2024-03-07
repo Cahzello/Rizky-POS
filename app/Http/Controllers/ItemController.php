@@ -44,7 +44,7 @@ class ItemController extends Controller
     {   
         $user_id = $this->getUserId();
 
-        $data = Categories::where('users_id', $user_id);
+        $data = Categories::where('users_id', $user_id)->get();
         // dd($data);
         return view('itemView.itemCreate',[
             'isLogin' => false,
