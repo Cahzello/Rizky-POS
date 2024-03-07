@@ -9,15 +9,27 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
     /**
+     * Get authicanted user id
+     */
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {   
-        $nama_category = [];
-        $filtered_data = Item::paginate(10);
-        foreach ($filtered_data as $key => $value) {
-            $nama_category[$key] = $value->categories->name;
-        }
+        $user_id = $this->getUserId();
+
+        $filtered_data = Item::with('categories')->where('users_id', $user_id)->paginate(10);
+
+        //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
+        $nama_category = $filtered_data->pluck('categories.name');
+
+        // dd($filtered_data);
         return view('itemView.itemIndex',[
             'isLogin' => false,
             'data' => $filtered_data,
@@ -30,7 +42,9 @@ class ItemController extends Controller
      */
     public function create()
     {   
-        $data = Categories::get()->all();
+        $user_id = $this->getUserId();
+
+        $data = Categories::where('users_id', $user_id);
         // dd($data);
         return view('itemView.itemCreate',[
             'isLogin' => false,
@@ -70,8 +84,10 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
+        $user_id = $this->getUserId();
+
         $data = Item::find($id);
-        $categories = Categories::get()->all();
+        $categories = Categories::where('users_id', $user_id);
         return view('itemView.itemEdit',[
             'isLogin' => false,
             'active' => 'item',
@@ -107,4 +123,5 @@ class ItemController extends Controller
 
         return redirect(route('items.index'))->with('success', 'Data Successfully Deleted');
     }
+
 }

@@ -29,14 +29,19 @@ Route::get('/register', [AuthController::class, 'viewRegister'])->name('register
 
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/', [RoutingController::class, 'index'])->name('home');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/home', [RoutingController::class, 'index'])->name('home');
+Route::middleware('auth')->group(function () {
 
-Route::resource('/transactions', TransactionController::class);
+    Route::get('/', [RoutingController::class, 'index'])->name('home');
 
-Route::resource('/items', ItemController::class);
+    Route::get('/home', [RoutingController::class, 'index'])->name('home');
 
-Route::resource('/category', CategoryController::class);
+    Route::resource('/transactions', TransactionController::class);
 
-Route::resource('/customer', CustomerController::class);
+    Route::resource('/items', ItemController::class);
+
+    Route::resource('/category', CategoryController::class);
+
+    Route::resource('/customer', CustomerController::class);
+});

@@ -7,13 +7,23 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * Get authicanted user id
+     */
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data = Categories::get()->all();
-        $paginate = Categories::paginate(10);
+        $user_id = $this->getUserId();
+
+        $paginate = Categories::where('users_id', $user_id)->paginate(10);
 
         return view('categoryView.categoryIndex', [
             'isLogin' => false,

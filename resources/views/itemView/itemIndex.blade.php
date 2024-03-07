@@ -57,7 +57,7 @@
                     </thead>
                     <tbody>
 
-                        @if ($data->total() > 0)
+                        @if ($data->count() > 0)
                             @foreach ($data as $key => $item)
                                 <tr id="{{ 'data_' . $item->id}}">
                                     <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>

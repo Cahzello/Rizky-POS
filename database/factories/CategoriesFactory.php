@@ -18,7 +18,7 @@ class CategoriesFactory extends Factory
     {
         return [
             'name' => fake()->word(),
-            'users_id' => rand(1, 2),
+            'users_id' => rand(1, 3),
         ];
     }
 }

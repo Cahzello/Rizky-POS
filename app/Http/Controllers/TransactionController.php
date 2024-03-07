@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
+     * Get authicanted user id
+     */
+    public function getUserId()
+    {
+        return auth()->id();
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -22,7 +30,9 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $data_item = Item::paginate(12);
+        $user_id = $this->getUserId();
+
+        $data_item = Item::where('users_id', $user_id)->paginate(12);
         // dd($data_item->total());
         return view('transactionsView.transactionsCreate', [
             'isLogin' => false,

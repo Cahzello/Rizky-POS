@@ -62,7 +62,7 @@ class AuthController extends Controller
         // dd($validatedRequest);
         User::create($validatedRequest);
 
-        return redirect(route('dashboard'))->with('success', 'Berhasil Terdaftar');
+        return redirect(route('home'))->with('success', 'Berhasil Terdaftar');
     }
 
     public function logout(Request $request)
