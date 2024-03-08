@@ -66,9 +66,11 @@ class ItemController extends Controller
             'cost_price' => 'required|numeric',
         ]);
 
+        $validatedRequest['users_id'] = $this->getUserId();
+
         Item::create($validatedRequest);
 
-        return redirect(route('items.create'))->with('success', 'berhasil kayanya');
+        return redirect(route('items.create'))->with('success', 'Item Successfullt Added');
     }
 
     /**

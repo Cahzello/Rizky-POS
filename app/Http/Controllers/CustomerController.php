@@ -50,6 +50,8 @@ class CustomerController extends Controller
             'email' => 'required|email',
         ]);
 
+        $validatedRequest['users_id'] = $this->getUserId();
+
         Customer::create($validatedRequest);
 
         return redirect(route('customer.create'))->with('success', 'Success');

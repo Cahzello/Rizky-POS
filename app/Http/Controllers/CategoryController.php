@@ -50,6 +50,8 @@ class CategoryController extends Controller
             'name' => 'required|string',
         ]);
 
+        $validatedRequest['users_id'] = $this->getUserId();
+
         Categories::create($validatedRequest);
 
         return redirect(route('category.create'))->with('success', 'Success');
