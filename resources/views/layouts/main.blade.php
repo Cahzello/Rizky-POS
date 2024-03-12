@@ -36,9 +36,12 @@
 </head>
 
 <body id="page-top">
-    @if ($isLogin)
-        @yield('unregister')
-    @else
+    @guest
+        @yield('guest')
+    @endguest
+
+    @auth
+
         <!-- Page Wrapper -->
         <div id="wrapper">
 
@@ -104,7 +107,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endauth
 
     <!-- Core plugin JavaScript-->
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>

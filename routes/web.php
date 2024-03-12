@@ -4,9 +4,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionsController;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,4 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('/category', CategoryController::class);
 
     Route::resource('/customer', CustomerController::class);
+    
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+
+    Route::post('/profile/username', [ProfileController::class, 'username'])->name('username');
+
+    Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
+
+    Route::post('/profile/password', [ProfileController::class, 'password'])->name('password');
+    
 });

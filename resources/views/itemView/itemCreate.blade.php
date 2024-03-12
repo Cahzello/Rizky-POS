@@ -85,7 +85,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                         </div>
-                        <input type="number" class="form-control @error('stock') is-invalid @enderror"
+                        <input type="number" class="form-control @error('stock_level') is-invalid @enderror"
                             value="{{ old('stock_level') }}" id="stock" name="stock_level">
                         @error('stock_level')
                             <div class="invalid-feedback">

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('unregister')
+@section('guest')
     <div class="container my-4 ">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <label for="email">Email: </label>
                             <input type="text" id="email" name="email" class="form-control rounded-left"
-                                placeholder="Input Email">
+                                placeholder="Input Email" value="{{old('email')}}">
                         </div>
                         <div class="form-group">
                             <label for="password">Password: </label>

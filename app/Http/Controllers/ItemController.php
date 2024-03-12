@@ -57,7 +57,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);    
+        // dd($request);   
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
