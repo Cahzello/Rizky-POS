@@ -54,5 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
 
     Route::post('/profile/password', [ProfileController::class, 'password'])->name('password');
+
+    Route::post('/profile/avatar', [ProfileController::class, 'upload'])->name('avatar');
     
 });

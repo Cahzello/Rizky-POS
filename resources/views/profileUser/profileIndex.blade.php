@@ -26,6 +26,19 @@
             @endif
         </div>
         <div class="card-body">
+            <form action="{{route('avatar')}}" method="POST" enctype="multipart/form-data" class="mb-2">
+                @csrf
+                <label for="avatar">Profle Picture: </label>
+                <div class="form-group">
+                    <input type="file" name="avatar" id="avatar" accept="image/*" class="form-control-file">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <img id="preview" src="#" alt="Avatar Preview" class="my-2" style="display: none; width: 250px;">
+
+                </div>
+            </form>
+
             <form action="{{ route('username') }}" method="POST" class="login-form">
                 @csrf
                 <label for="username">Username: </label>
@@ -90,4 +103,21 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('avatar').addEventListener('change', function(e) {
+            var preview = document.getElementById('preview');
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+        </script>
 @endsection

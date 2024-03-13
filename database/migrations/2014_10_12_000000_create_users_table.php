@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password', 255);
             $table->string('role', 20);
+            $table->string('path_file')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

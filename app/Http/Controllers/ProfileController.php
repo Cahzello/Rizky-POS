@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -62,5 +63,23 @@ class ProfileController extends Controller
         User::where('id', $userId)->update($validatedRequest);
 
         return redirect(route('profile'))->with('success', 'Password Berhasil Diubah');
+    }
+
+    public function upload(Request $request)
+    {
+        $userId = $this->getUserId();
+
+        $request->validate([
+            'avatar' => 'required|image|max:4096'
+        ]);
+        // dd($request);
+        try {
+            $path = $request->file('avatar')->store('avatars');
+            User::where('id', $userId)->update(array("path_file" => $path));
+
+            return redirect(route('profile'))->with('success', 'file berhasil diupload');            
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to upload avatar'], 500);
+        }
     }
 }
