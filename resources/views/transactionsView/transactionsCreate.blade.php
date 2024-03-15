@@ -47,7 +47,7 @@
                             @foreach ($data_item as $item)
                                 <div class="col-lg-4 p-2">
                                     <div class="card shadow-sm">
-                                        <img src="/img/milo.jpg" style="object-fit: cover;" class="rounded" alt="tadfs"
+                                        <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg'; }}" style="object-fit: cover;" class="rounded" alt="tadfs"
                                             height="140px" width="100%">
                                         <div class="card-body p-2">
                                             <p class="h6">{{ $item->name }}</p>

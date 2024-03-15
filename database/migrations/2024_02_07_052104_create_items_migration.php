@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price', 15, 2);
             $table->bigInteger('stock_level')->default('0');
             $table->decimal('cost_price', 15, 2);
+            $table->string('item_image')->nullable();
             $table->timestamps();
         });
     }

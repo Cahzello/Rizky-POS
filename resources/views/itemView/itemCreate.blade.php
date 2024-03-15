@@ -23,6 +23,9 @@
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <p>Error. Form hasn't meet requirement. Please verify again.</p>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br>
+                    @endforeach
                 </div>
             @endif
             @if (session()->has('success'))
@@ -32,7 +35,7 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="{{ route('items.store') }}" method="POST">
+            <form action="{{ route('items.store') }}" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="has-validation">
                     <label for="name">Item Name</label>
@@ -95,6 +98,17 @@
                     </div>
                 </div>
                 <div>
+                    <label for="itemImage">Item Image: </label>
+                    <div class="form-group">
+                        <input type="file" name="item_image" id="itemImage" accept="image/*" class="form-control-file">
+                    </div>
+                    <div>
+                        <img id="preview" src="#" alt="Avatar Preview" class="my-2"
+                            style="display: none; width: 250px;">
+                    </div>
+                </div>
+
+                <div>
                     <label for="category">Item Category</label>
                     <div class="input-group mb-3 w-50">
                         <div class="input-group-prepend">
@@ -104,7 +118,7 @@
                             name="categories_id">
                             <option value="NULL">Select Category</option>
                             @foreach ($data as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
                         @error('category')
@@ -119,4 +133,21 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('itemImage').addEventListener('change', function(e) {
+            var preview = document.getElementById('preview');
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
 @endsection

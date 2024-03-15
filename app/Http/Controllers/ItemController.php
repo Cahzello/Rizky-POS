@@ -57,21 +57,30 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);   
+        if($request->hasFile('item_image')){
+            $path = $request->file('item_image')->store('ItemImage');
+        } else {
+            $path = null;
+        }
+    
+
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
             'stock_level' => 'required|numeric',
             'categories_id' => 'required',
             'cost_price' => 'required|numeric',
+            'item_image' => 'image'
         ]);
 
+        $validatedRequest['item_image'] = $path;
         $validatedRequest['users_id'] = $this->getUserId();
 
         Item::create($validatedRequest);
 
-        return redirect(route('items.create'))->with('success', 'Item Successfullt Added');
+        return redirect(route('items.create'))->with('success', 'Item Successfully Added');
     }
+
 
     /**
      * Display the specified resource.
@@ -96,6 +105,7 @@ class ItemController extends Controller
             'data' => $data,
             'categories' => $categories,
         ]);
+
     }
 
     /**

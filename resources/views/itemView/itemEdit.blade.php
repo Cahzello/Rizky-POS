@@ -35,6 +35,11 @@
             <form action="{{ route('items.update', $data->id) }}" method="POST">
                 @method('PUT')
                 @csrf
+                <div class="d-flex flex-column my-3">
+                    <label for="">Current Item Image</label>
+                    <img src="{{ $data->item_image ? asset($data->item_image) : '/img/groc_bag.svg'; }}" alt="Item Image Picture" class="img-fluid img-thumbnail"
+                        style="width: 250px;">
+                </div>
                 <div class="has-validation">
                     <label for="name">Item Name</label>
                     <div class="input-group mb-3 w-50">
@@ -96,6 +101,16 @@
                     </div>
                 </div>
                 <div>
+                    <label for="itemImage">Item Image: </label>
+                    <div class="form-group">
+                        <input type="file" name="item_image" id="itemImage" accept="image/*" class="form-control-file">
+                    </div>
+                    <div>
+                        <img id="preview" src="#" alt="Avatar Preview" class="my-2"
+                            style="display: none; width: 250px;">
+                    </div>
+                </div>
+                <div>
                     <label for="category">Item Category</label>
                     <div class="input-group mb-3 w-50">
                         <div class="input-group-prepend">
@@ -105,7 +120,8 @@
                             name="categories_id">
                             <option value="NULL">Select Category</option>
                             @foreach ($categories as $item)
-                                <option @if ($item->id == $data->categories_id) selected @endif value="{{$item->id}}">{{$item->name}}</option>
+                                <option @if ($item->id == $data->categories_id) selected @endif value="{{ $item->id }}">
+                                    {{ $item->name }}</option>
                             @endforeach
                         </select>
                         @error('category')
@@ -120,4 +136,21 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.getElementById('itemImage').addEventListener('change', function(e) {
+            var preview = document.getElementById('preview');
+            var file = e.target.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    </script>
 @endsection
