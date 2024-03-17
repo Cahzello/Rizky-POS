@@ -102,13 +102,12 @@
             <!-- Approach -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Latest Item Inputted</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Item Created</h6>
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta quis nam, obcaecati ea neque sequi asperiores dignissimos, ex corporis dolores fugiat eius vel autem unde labore, alias dicta officiis saepe.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with
-                        the
-                        Bootstrap framework, especially the utility classes.</p>
+                    <p>Item Name:  {{ $data['itemData']->name }}</p>
+                    <p>Date Item Created:  {{ $data['itemData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
+                    <p>Date Item Updated:  {{ $data['itemData']->updated_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                 </div>
             </div>
 
@@ -119,13 +118,12 @@
             <!-- Approach -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Latest Transactions Created</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Category Created</h6>
                 </div>
                 <div class="card-body">
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate ea error quasi provident impedit officia qui, praesentium animi dolorum quis quam est, expedita distinctio cupiditate non sapiente, hic atque doloremque.</p>
-                    <p class="mb-0">Before working with this theme, you should become familiar with
-                        the
-                        Bootstrap framework, especially the utility classes.</p>
+                    <p>Category Name:  {{ $data['categoryData']->name }}</p>
+                    <p>Date Category Created:  {{ $data['categoryData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
+                    <p>Date Category Updated:  {{ $data['categoryData']->updated_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                 </div>
             </div>
 
