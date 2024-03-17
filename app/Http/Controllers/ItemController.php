@@ -25,7 +25,6 @@ class ItemController extends Controller
         $user_id = $this->getUserId();
 
         $filtered_data = Item::with('categories')->where('users_id', $user_id)->paginate(10);
-
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
         $nama_category = $filtered_data->pluck('categories.name');
 
@@ -63,7 +62,6 @@ class ItemController extends Controller
             $path = null;
         }
     
-
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
@@ -98,7 +96,7 @@ class ItemController extends Controller
         $user_id = $this->getUserId();
 
         $data = Item::find($id);
-        $categories = Categories::where('users_id', $user_id);
+        $categories = Categories::where('users_id', $user_id)->get();
         return view('itemView.itemEdit',[
             'isLogin' => false,
             'active' => 'item',
@@ -112,14 +110,23 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
+    {   
+        if($request->hasFile('item_image')){
+            $path = $request->file('item_image')->store('ItemImage');
+        } else {
+            $path = null;
+        }
+    
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
             'stock_level' => 'required|numeric',
             'categories_id' => 'required',
             'cost_price' => 'required|numeric',
+            'item_image' => 'image',
         ]);
+
+        $validatedRequest['item_image'] = $path;
 
         Item::where('id', $id)->update($validatedRequest);
 

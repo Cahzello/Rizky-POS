@@ -8,7 +8,7 @@
             </span>
             <span class="text">Go Back</span>
         </a>
-        <h1 class="h3 mb-0 text-gray-800">Edit Data Item</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Data Item {{ $data->name }}</h1>
     </div>
 
     <div class="card ">
@@ -32,7 +32,7 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="{{ route('items.update', $data->id) }}" method="POST">
+            <form action="{{ route('items.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="d-flex flex-column my-3">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div>
-                    <label for="itemImage">Item Image: </label>
+                    <label for="itemImage">Item Image: (optional)</label>
                     <div class="form-group">
                         <input type="file" name="item_image" id="itemImage" accept="image/*" class="form-control-file">
                     </div>
@@ -118,7 +118,7 @@
                         </div>
                         <select class="form-control @error('category') is-invalid @enderror" id="category"
                             name="categories_id">
-                            <option value="NULL">Select Category</option>
+                            <option>Select Category</option>
                             @foreach ($categories as $item)
                                 <option @if ($item->id == $data->categories_id) selected @endif value="{{ $item->id }}">
                                     {{ $item->name }}</option>

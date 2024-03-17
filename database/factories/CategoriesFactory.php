@@ -17,8 +17,15 @@ class CategoriesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
-            'users_id' => rand(1, 3),
+            'name' => fake()->randomElement([
+                'Minuman', 'Makanan', 'Perkakas', 'Elektronik', 'Kendaraan',
+                'Pakaian', 'Peralatan Rumah Tangga', 'Kebutuhan Bayi', 'Kosmetik',
+                'Obat-obatan', 'Produk Pertanian', 'Produk Peternakan',
+                'Produk Pertanian Organik', 'Produk Peternakan Organik',
+                'Produk Kesehatan', 'Produk Kebersihan', 'Produk Pembersih',
+                'Produk Pertahanan', 'Produk Pertahanan Organik', 'Produk Alat Olahraga'
+            ]),
+            'users_id' => 1,
         ];
     }
 }

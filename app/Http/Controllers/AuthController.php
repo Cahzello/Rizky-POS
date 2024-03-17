@@ -62,7 +62,7 @@ class AuthController extends Controller
         // dd($validatedRequest);
         User::create($validatedRequest);
 
-        return redirect(route('home'))->with('success', 'Berhasil Terdaftar');
+        return redirect(route('login'))->with('success', 'Berhasil Terdaftar');
     }
 
     public function logout(Request $request)
@@ -73,6 +73,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
         
-        return redirect(route('login'));
+        return redirect(route('login'))->with('success', 'Berhasil Logout');
     }
 }

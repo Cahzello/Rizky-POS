@@ -8,7 +8,7 @@
             </span>
             <span class="text">Go Back</span>
         </a>
-        <h1 class="h3 mb-0 text-gray-800">Edit Category</h1>
+        <h1 class="h3 mb-0 text-gray-800">Edit Category {{$data->name}} </h1>
     </div>
 
     <div class="card ">
