@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorize('admin');
+    }
+
     /**
      * Get authicanted user id
      */
@@ -16,12 +22,12 @@ class ItemController extends Controller
         return auth()->id();
     }
 
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {   
+
         $user_id = $this->getUserId();
 
         $filtered_data = Item::with('categories')->where('users_id', $user_id)->paginate(10);

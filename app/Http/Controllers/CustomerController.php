@@ -19,7 +19,8 @@ class CustomerController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+
         $user_id = $this->getUserId();
 
         $data = Customer::where('users_id', $user_id)->paginate(10);

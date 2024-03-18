@@ -7,6 +7,18 @@
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-whphp ite-50"></i> Generate Report</a>
     </div>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                {{ $error }} <br>
+            @endforeach
+        </div>
+    @endif
+    @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <!-- Content Row -->
     {{-- <div class="row">
@@ -45,7 +57,7 @@
                 <div class="card-body">
                     @if ($data['itemData'] == null)
                         <p>No Data Created</p>
-                        <a href="{{route('items.create')}}" class="btn btn-primary">Create Item</a>
+                        <a href="{{ route('items.create') }}" class="btn btn-primary">Create Item</a>
                     @else
                         <p>Item Name: {{ $data['itemData']->name }}</p>
                         <p>Date Item Created:
@@ -68,7 +80,7 @@
                 <div class="card-body">
                     @if ($data['categoryData'] == null)
                         <p>No Data Created</p>
-                        <a href="{{route('category.create')}}" class="btn btn-primary">Create Category</a>
+                        <a href="{{ route('category.create') }}" class="btn btn-primary">Create Category</a>
                     @else
                         <p>Item Name: {{ $data['categoryData']->name }}</p>
                         <p>Date Item Created:
@@ -91,7 +103,7 @@
                 <div class="card-body">
                     @if ($data['customerData'] == null)
                         <p>No Data Inputted</p>
-                        <a href="{{route('customer.create')}}" class="btn btn-primary">Input Customer</a>
+                        <a href="{{ route('customer.create') }}" class="btn btn-primary">Input Customer</a>
                     @else
                         <p>Item Name: {{ $data['customerData']->name }}</p>
                         <p>Date Item Created:

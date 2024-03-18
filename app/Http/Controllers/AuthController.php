@@ -10,16 +10,12 @@ class AuthController extends Controller
 {
     public function viewLogin()
     {
-        return view('login', [
-            'isLogin' => true
-        ]);
+        return view('login');
     }
 
     public function viewRegister()
     {
-        return view('register', [
-            'isLogin' => true
-        ]);
+        return view('register');
     }
 
     public function login(Request $request)
@@ -34,7 +30,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $rememberMe)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('home'))->with('success', 'Successfully Login');
         }
 
         return back()->withErrors([

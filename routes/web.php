@@ -7,8 +7,6 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\TransactionsController;
-use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,15 +21,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
-
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::get('/register', [AuthController::class, 'viewRegister'])->name('register');
-
-Route::post('/register', [AuthController::class, 'register']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
+    
+    Route::post('/login', [AuthController::class, 'login']);
+    
+    Route::get('/register', [AuthController::class, 'viewRegister'])->name('register');
+    
+    Route::post('/register', [AuthController::class, 'register']);
+    
+});
 
 Route::middleware('auth')->group(function () {
 
@@ -57,4 +56,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/profile/avatar', [ProfileController::class, 'upload'])->name('avatar');
     
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 });
