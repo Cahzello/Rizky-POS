@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 class ItemController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->authorize('admin');
-    }
+    // public function __construct()
+    // {
+    //     $this->authorize('isAdmin');
+    // }
 
     /**
      * Get authicanted user id
@@ -27,8 +27,8 @@ class ItemController extends Controller
      */
     public function index()
     {   
-
-        $user_id = $this->getUserId();
+        $this->authorize('isAdmin');
+        $user_id = $this->getUserId();  
 
         $filtered_data = Item::with('categories')->where('users_id', $user_id)->paginate(10);
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck

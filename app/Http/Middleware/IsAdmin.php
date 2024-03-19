@@ -25,7 +25,7 @@ class IsAdmin
         }
 
         // Check if the user's role is 'admin'
-        if ($user->role == 'admin') {
+        if ($user->role === 'admin') {
             // If the user is an admin, proceed with the request
             return $next($request);
         } else {

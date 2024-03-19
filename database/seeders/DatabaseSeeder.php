@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'miku',
             'email' => 'miku@gmail.com',
             'password' => bcrypt('password'),
-            'role' => 'admin',
+            'role' => 'user',
             'path_file' => 'avatars/Zc21WZwZNHQEQQARJRUFzEdKClrXYcYnm2G9e9vJ.png'
         ]);
         User::factory(10)->create();

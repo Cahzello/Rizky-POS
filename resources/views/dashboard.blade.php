@@ -82,7 +82,7 @@
                         <p>No Data Created</p>
                         <a href="{{ route('category.create') }}" class="btn btn-primary">Create Category</a>
                     @else
-                        <p>Item Name: {{ $data['categoryData']->name }}</p>
+                        <p>Category Name: {{ $data['categoryData']->name }}</p>
                         <p>Date Item Created:
                             {{ $data['categoryData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                         <p>Date Item Updated:
@@ -105,7 +105,7 @@
                         <p>No Data Inputted</p>
                         <a href="{{ route('customer.create') }}" class="btn btn-primary">Input Customer</a>
                     @else
-                        <p>Item Name: {{ $data['customerData']->name }}</p>
+                        <p>Customer Name: {{ $data['customerData']->name }}</p>
                         <p>Date Item Created:
                             {{ $data['customerData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                         <p>Date Item Updated:
