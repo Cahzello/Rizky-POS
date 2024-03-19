@@ -21,12 +21,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('isAdmin');
         $user_id = $this->getUserId();
 
         $paginate = Categories::where('users_id', $user_id)->paginate(10);
 
         return view('categoryView.categoryIndex', [
-            'isLogin' => false,
             'data' => $paginate
         ]);
     }
@@ -36,9 +36,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categoryView.categoryCreate', [
-            'isLogin' => false,
-        ]);
+        $this->authorize('isAdmin');
+        return view('categoryView.categoryCreate');
     }
 
     /**
@@ -70,11 +69,10 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('isAdmin');
         $data = Categories::find($id);
 
         return view('categoryView.categoryEdit', [
-            'isLogin' => false,
-            'active' => 'category',
             'data' => $data
         ]);
     }

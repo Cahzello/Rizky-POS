@@ -20,13 +20,12 @@ class CustomerController extends Controller
      */
     public function index()
     {   
-
+        $this->authorize('isAdmin');
         $user_id = $this->getUserId();
 
         $data = Customer::where('users_id', $user_id)->paginate(10);
 
         return view('customerView.customerIndex', [
-            'isLogin' => false,
             'data' => $data
         ]);
     }
@@ -36,9 +35,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customerView.customerCreate', [
-            'isLogin' => false,
-        ]);
+        $this->authorize('isAdmin');
+        return view('customerView.customerCreate');
     }
 
     /**
@@ -71,11 +69,10 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('isAdmin');
         $data = Customer::find($id);
 
         return view('customerView.customerEdit', [
-            'isLogin' => false,
-            'active' => 'users',
             'data' => $data
         ]);
     }

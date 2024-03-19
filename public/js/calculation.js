@@ -6,18 +6,16 @@ let total = [];
 //     e.returnValue = "Leaving Site?";
 // });
 
-function create_list(id, name, price) {
-    $(document).ready(() => {
-        if (addedIds.has(id)) {
-            alert("Duplicate entry is not allowed.");
-            return; 
-        }
-        let tbody = $("#calculation_data");
+function create_list(id, name, price, quantity) {
+    if (addedIds.has(id)) {
+        alert("Duplicate entry is not allowed.");
+        return;
+    }
+    let tbody = $("#calculation_data");
 
-        addedIds.add(id);
-        updateEmptyMessage(tbody);
-        create_calc(id, name, price);
-    });
+    addedIds.add(id);
+    updateEmptyMessage(tbody);
+    create_calc(id, name, price, quantity);
 }
 
 function updateEmptyMessage(tbody) {
@@ -35,7 +33,7 @@ function updateEmptyMessage(tbody) {
     }
 }
 
-function create_calc(id, name, price) {
+function create_calc(id, name, price, quantity) {
     let tbody = $("#calculation_data");
     let row = $("<tr>");
 
@@ -47,10 +45,10 @@ function create_calc(id, name, price) {
     let input = $("<input>")
         .attr("id", `qty-${id}`)
         .attr("type", "number")
-        .attr("value", 1)
+        .attr("value", quantity)
         .change((event) => {
             let inputValue = event.target.value;
-            addItem(id, price, inputValue);
+            addItem(id, price, inputValue, name);
         })
         .css("width", "60%");
     cell2.append(input);
@@ -63,7 +61,6 @@ function create_calc(id, name, price) {
         .append($("<i>").addClass("fas fa-minus-circle"))
         .click(function () {
             decrementQuantity(`qty-${id}`);
-            // addItem(id, price, 1);
         });
     cell2.append(decrementButton);
 
@@ -72,13 +69,15 @@ function create_calc(id, name, price) {
         .append($("<i>").addClass("fas fa-plus-circle"))
         .click(function () {
             incrementQuantity(`qty-${id}`);
-            // addItem(id, price, 1);
         });
     cell2.append(incrementButton);
 
     row.append(cell2);
 
-    let displayPrice = Intl.NumberFormat(['ban', 'id'], {style: 'currency', currency: 'IDR'}).format(price);
+    let displayPrice = Intl.NumberFormat(["ban", "id"], {
+        style: "currency",
+        currency: "IDR",
+    }).format(price);
     let cell3 = $("<td>").text(displayPrice).attr("id", `price`);
     row.append(cell3);
 
@@ -97,19 +96,25 @@ function create_calc(id, name, price) {
     row.append(cell4);
 
     $("#calculation").append(row);
-    addItem(id, price, 1);
+    addItem(id, price, quantity, name);
 }
 
-function addItem(id, price, quantity) {
+function addItem(id, price, quantity, name) {
     let item = total.find((item) => item.id === id);
     if (item) {
         item.quantity = quantity;
     } else {
-        total.push({ id: id, price: parseFloat(price), quantity: quantity });
+        total.push({
+            id: id,
+            name: name,
+            price: parseFloat(price),
+            quantity: parseInt(quantity),
+        });
     }
 
     console.log(sumPrice());
     console.log(total);
+    localStorage.setItem("total", JSON.stringify(total));
 }
 
 function removeItem(id) {
@@ -121,6 +126,7 @@ function removeItem(id) {
 
     console.log(total);
     console.log(sumPrice());
+    localStorage.setItem("total", JSON.stringify(total));
 }
 
 function increaseQuantity(id) {
@@ -131,6 +137,7 @@ function increaseQuantity(id) {
 
     console.log(sumPrice());
     console.log(total);
+    localStorage.setItem("total", JSON.stringify(total));
 }
 
 function decreaseQuantity(id) {
@@ -141,6 +148,7 @@ function decreaseQuantity(id) {
 
     console.log(sumPrice());
     console.log(total);
+    localStorage.setItem("total", JSON.stringify(total));
 }
 
 function sumPrice() {
@@ -156,7 +164,7 @@ function incrementQuantity(inputId) {
     let inputField = document.getElementById(inputId);
     let currentValue = parseInt(inputField.value);
     inputField.value = currentValue + 1;
-    inputField.dispatchEvent(new Event('change'));
+    inputField.dispatchEvent(new Event("change"));
 }
 
 function decrementQuantity(inputId) {
@@ -165,16 +173,27 @@ function decrementQuantity(inputId) {
     if (currentValue > 1) {
         inputField.value = currentValue - 1;
     }
-    inputField.dispatchEvent(new Event('change'));
+    inputField.dispatchEvent(new Event("change"));
 }
 
 function updatePriceView(updatedPrice) {
     let displayPrice = updatedPrice === 0 ? 0 : updatedPrice;
     let priceView = document.getElementById("subtotal");
-    priceView.innerText = Intl.NumberFormat(['ban', 'id'], {style: 'currency', currency: 'IDR'}).format(displayPrice);
+    priceView.innerText = Intl.NumberFormat(["ban", "id"], {
+        style: "currency",
+        currency: "IDR",
+    }).format(displayPrice);
 }
+
 window.addEventListener("load", () => {
     updatePriceView(0);
+
+    let savedTotal = localStorage.getItem("total");
+    if (savedTotal) {
+        total = [];
+        total = JSON.parse(savedTotal);
+    }
+    total.forEach((element) => {
+        create_list(element.id, element.name, element.price, element.quantity);
+    });
 });
-
-

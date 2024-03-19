@@ -5,15 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ItemController extends Controller
 {
-
-    // public function __construct()
-    // {
-    //     $this->authorize('isAdmin');
-    // }
-
     /**
      * Get authicanted user id
      */
@@ -47,12 +42,12 @@ class ItemController extends Controller
      */
     public function create()
     {   
+        $this->authorize('isAdmin');
         $user_id = $this->getUserId();
 
         $data = Categories::where('users_id', $user_id)->get();
         // dd($data);
         return view('itemView.itemCreate',[
-            'isLogin' => false,
             'data' => $data
         ]);
     }
@@ -99,13 +94,12 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('isAdmin');    
         $user_id = $this->getUserId();
 
         $data = Item::find($id);
         $categories = Categories::where('users_id', $user_id)->get();
         return view('itemView.itemEdit',[
-            'isLogin' => false,
-            'active' => 'item',
             'data' => $data,
             'categories' => $categories,
         ]);
