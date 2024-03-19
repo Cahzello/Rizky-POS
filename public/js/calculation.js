@@ -1,10 +1,6 @@
 let addedIds = new Set();
 let total = [];
-
-// window.addEventListener("beforeunload", (e) => {
-//     e.preventDefault();
-//     e.returnValue = "Leaving Site?";
-// });
+const userIdInput = document.getElementById('userId').value;
 
 function create_list(id, name, price, quantity) {
     if (addedIds.has(id)) {
@@ -106,26 +102,23 @@ function addItem(id, price, quantity, name) {
     } else {
         total.push({
             id: id,
+            user_id: parseInt(userIdInput),
             name: name,
             price: parseFloat(price),
             quantity: parseInt(quantity),
         });
     }
-
-    console.log(sumPrice());
-    console.log(total);
+    sumPrice();
     localStorage.setItem("total", JSON.stringify(total));
-}
+}   
 
 function removeItem(id) {
     let index = total.findIndex((item) => item.id === id);
-    console.log(index);
     if (index !== -1) {
         total.splice(index, 1);
     }
 
-    console.log(total);
-    console.log(sumPrice());
+    sumPrice();
     localStorage.setItem("total", JSON.stringify(total));
 }
 
@@ -135,8 +128,7 @@ function increaseQuantity(id) {
         item.quantity++;
     }
 
-    console.log(sumPrice());
-    console.log(total);
+    sumPrice();
     localStorage.setItem("total", JSON.stringify(total));
 }
 
@@ -145,9 +137,7 @@ function decreaseQuantity(id) {
     if (item && item.quantity > 0) {
         item.quantity--;
     }
-
-    console.log(sumPrice());
-    console.log(total);
+    sumPrice();
     localStorage.setItem("total", JSON.stringify(total));
 }
 
@@ -179,7 +169,7 @@ function decrementQuantity(inputId) {
 function updatePriceView(updatedPrice) {
     let displayPrice = updatedPrice === 0 ? 0 : updatedPrice;
     let priceView = document.getElementById("subtotal");
-    priceView.innerText = Intl.NumberFormat(["ban", "id"], {
+    priceView.innerText = Intl.NumberFormat(["ban", "id"], {    
         style: "currency",
         currency: "IDR",
     }).format(displayPrice);
@@ -194,6 +184,8 @@ window.addEventListener("load", () => {
         total = JSON.parse(savedTotal);
     }
     total.forEach((element) => {
-        create_list(element.id, element.name, element.price, element.quantity);
+        if(element.user_id == userIdInput){
+            create_list(element.id, element.name, element.price, element.quantity, element.user_id);
+        }
     });
 });

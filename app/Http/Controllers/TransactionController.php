@@ -20,9 +20,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('transactionsView.transactionsIndex', [
-            'isLogin' => false,
-    ]);
+        return view('transactionsView.transactionsIndex');
     }
 
     /**
@@ -33,9 +31,7 @@ class TransactionController extends Controller
         $user_id = $this->getUserId();
 
         $data_item = Item::where('users_id', $user_id)->paginate(12);
-        // dd($data_item->total());
         return view('transactionsView.transactionsCreate', [
-            'isLogin' => false,
             'data_item' => $data_item
         ]);
     }

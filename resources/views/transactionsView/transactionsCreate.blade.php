@@ -36,6 +36,7 @@
                 <div class="container">
                     {{$data_item->links('pagination::bootstrap-4')}}
                     <div class="row">
+                        <input type="hidden" id="userId" value="{{auth()->id()}}">
                         @if ($data_item->total() <= 0)
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-center align-items-center flex-column">
