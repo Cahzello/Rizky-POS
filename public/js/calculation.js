@@ -1,6 +1,7 @@
 let addedIds = new Set();
 let total = [];
-const userIdInput = document.getElementById('userId').value;
+const userIdInput = document.getElementById("userId").value;
+const clearBtn = document.getElementById("clearList");
 
 function create_list(id, name, price, quantity) {
     if (addedIds.has(id)) {
@@ -110,7 +111,7 @@ function addItem(id, price, quantity, name) {
     }
     sumPrice();
     localStorage.setItem("total", JSON.stringify(total));
-}   
+}
 
 function removeItem(id) {
     let index = total.findIndex((item) => item.id === id);
@@ -169,7 +170,7 @@ function decrementQuantity(inputId) {
 function updatePriceView(updatedPrice) {
     let displayPrice = updatedPrice === 0 ? 0 : updatedPrice;
     let priceView = document.getElementById("subtotal");
-    priceView.innerText = Intl.NumberFormat(["ban", "id"], {    
+    priceView.innerText = Intl.NumberFormat(["ban", "id"], {
         style: "currency",
         currency: "IDR",
     }).format(displayPrice);
@@ -183,9 +184,38 @@ window.addEventListener("load", () => {
         total = [];
         total = JSON.parse(savedTotal);
     }
+    render();
+});
+
+clearBtn.addEventListener("click", () => {
+    total = [];
+    clear();
+});
+
+function clear() {
+    let tbody = $("#calculation_data");
+    if (tbody.length > 0) {
+        tbody.find("tr").remove();
+    }
+    addedIds.clear();
+    updateEmptyMessage(tbody);
+    updatePriceView(0);
+    localStorage.setItem("total", JSON.stringify(total));
+    console.log(addedIds);  
+    console.log(total);
+}
+
+function render() {
+    console.log(total);
     total.forEach((element) => {
-        if(element.user_id == userIdInput){
-            create_list(element.id, element.name, element.price, element.quantity, element.user_id);
+        if (element.user_id == userIdInput) {
+            create_list(
+                element.id,
+                element.name,
+                element.price,
+                element.quantity,
+                element.user_id
+            );
         }
     });
-});
+}

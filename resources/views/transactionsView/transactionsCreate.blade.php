@@ -107,7 +107,7 @@
 
                 <hr>
 
-                <a href="" class="btn btn-danger">Cancel</a>
+                <button id="clearList" class="btn btn-danger">Clear List</button>
                 <a href="" class="btn btn-primary">Charge</a>
             </div>
 
