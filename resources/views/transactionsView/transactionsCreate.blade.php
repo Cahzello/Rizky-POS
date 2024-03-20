@@ -112,29 +112,28 @@
 
                     <hr>
 
-                    <div class="d-flex justify-content-between mb-3">
-                        <span>
-                            <label for="cusName">
-                                Customer Name:
-                            </label>
-                        </span>
-                        <span class="text-right">
-                            <input type="text" name="name" id="cusName" placeholder="Input Name"
-                                class="form-control">
-                        </span>
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <label for="cusName">Customer Name: </label>
+                        <div class="input-group" style="width: 60%;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" name="name" id="cusName" placeholder="Input Name" class="form-control">
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-between">
-                        <span>
-                            <label for="cusEmail">
-                                Customer Email:
-                            </label>
-                        </span>
-                        <span class="text-right">
-                            <input type="text" name="email" id="cusEmail" placeholder="Input Email"
-                                class="form-control">
-                        </span>
+
+                        <label for="cusEmail">Customer Email: </label>
+                        <div class="input-group" style="width: 60%;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                            </div>
+                            <input type="text" name="email" id="cusEmail" placeholder="Input Email" class="form-control">
+                        </div>
                     </div>
+
 
                     <hr>
 

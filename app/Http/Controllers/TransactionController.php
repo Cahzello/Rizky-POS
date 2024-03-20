@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Item;
+use App\Models\Transactions;
+use App\Models\Transactions_items;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class TransactionController extends Controller
 {
@@ -39,14 +43,44 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {   
-        
-        $validatedRequest = $request->validate([
+        $userId = $this->getUserId();
+        // dd($request);
+
+        if(!$request->has('itemid') && !$request->has('quantity')){
+            return redirect(route('transactions.create'))->withErrors('Item list cannot be empty!');
+        }
+
+        $request->validate([
             'name' => 'required|string',
             'email' => 'required|email',
         ]);
-        dd($request);
 
-        return redirect(route('items.create'))->with('success', 'berhasil kayanya');
+        $customerCredentials = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        $customerData= Customer::create($customerCredentials);
+        
+        $transactionsCredentials = [
+            'users_id' => $userId,
+            'customer_id' => $customerData->id,
+            'total_amount' => $request->totalPrice,
+        ];
+
+        $transactionData = Transactions::create($transactionsCredentials);
+
+        foreach ($request->itemId as $key => $value) {
+            $data = [
+                'item_id' => $value,
+                'transaction_id' => $transactionData->id,
+                'quantity' => $request->quantity[$key]
+            ];
+
+            Transactions_items::create($data);
+        }
+
+        return redirect(route('items.index'))->with('success', 'berhasil kayanya');
     }
 
     /**
