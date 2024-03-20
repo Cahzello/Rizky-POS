@@ -18,7 +18,6 @@ class CustomerFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
-            'users_id' => 1,
             'email' => fake()->unique()->safeEmail(),
         ];
     }

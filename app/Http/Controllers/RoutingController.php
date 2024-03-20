@@ -19,9 +19,9 @@ class RoutingController extends Controller
     public function index ()
     {
         $userId = $this->getUserId();
-        $itemData = Item::where('users_id', $userId)->orderBy('created_at', 'desc')->first();
-        $categoryData = Categories::where('users_id', $userId)->orderBy('created_at', 'desc')->first();
-        $customerData = Customer::where('users_id', $userId)->orderBy('created_at', 'desc')->first();
+        $itemData = Item::latest()->first();
+        $categoryData = Categories::latest()->first();
+        $customerData = Customer::latest()->first();
         return view('dashboard', [
             'active' => 'dashboard',
             'data' => array('itemData' => $itemData, 'categoryData' => $categoryData, 'customerData' => $customerData)

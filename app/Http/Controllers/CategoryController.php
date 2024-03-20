@@ -22,9 +22,8 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('isAdmin');
-        $user_id = $this->getUserId();
 
-        $paginate = Categories::where('users_id', $user_id)->paginate(10);
+        $paginate = Categories::latest()->paginate(10);
 
         return view('categoryView.categoryIndex', [
             'data' => $paginate
@@ -49,7 +48,6 @@ class CategoryController extends Controller
             'name' => 'required|string',
         ]);
 
-        $validatedRequest['users_id'] = $this->getUserId();
 
         Categories::create($validatedRequest);
 

@@ -25,7 +25,6 @@ class CategoriesFactory extends Factory
                 'Produk Kesehatan', 'Produk Kebersihan', 'Produk Pembersih',
                 'Produk Pertahanan', 'Produk Pertahanan Organik', 'Produk Alat Olahraga'
             ]),
-            'users_id' => 1,
         ];
     }
 }

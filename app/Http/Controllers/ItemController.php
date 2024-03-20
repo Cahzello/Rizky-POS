@@ -23,9 +23,8 @@ class ItemController extends Controller
     public function index()
     {   
         $this->authorize('isAdmin');
-        $user_id = $this->getUserId();  
 
-        $filtered_data = Item::with('categories')->where('users_id', $user_id)->paginate(10);
+        $filtered_data = Item::latest()->paginate(10);
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
         $nama_category = $filtered_data->pluck('categories.name');
 
@@ -43,9 +42,8 @@ class ItemController extends Controller
     public function create()
     {   
         $this->authorize('isAdmin');
-        $user_id = $this->getUserId();
 
-        $data = Categories::where('users_id', $user_id)->get();
+        $data = Categories::get();
         // dd($data);
         return view('itemView.itemCreate',[
             'data' => $data
@@ -73,7 +71,6 @@ class ItemController extends Controller
         ]);
 
         $validatedRequest['item_image'] = $path;
-        $validatedRequest['users_id'] = $this->getUserId();
 
         Item::create($validatedRequest);
 
@@ -95,10 +92,9 @@ class ItemController extends Controller
     public function edit(string $id)
     {
         $this->authorize('isAdmin');    
-        $user_id = $this->getUserId();
 
         $data = Item::find($id);
-        $categories = Categories::where('users_id', $user_id)->get();
+        $categories = Categories::get();
         return view('itemView.itemEdit',[
             'data' => $data,
             'categories' => $categories,
@@ -130,7 +126,7 @@ class ItemController extends Controller
 
         Item::where('id', $id)->update($validatedRequest);
 
-        return redirect(route('items.index', '#data_' . $id))->with('success', 'Data Successfully Updated');
+        return redirect(route('items.edit'))->with('success', 'Data Successfully Updated');
     }
 
     /**

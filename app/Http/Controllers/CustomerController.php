@@ -21,9 +21,8 @@ class CustomerController extends Controller
     public function index()
     {   
         $this->authorize('isAdmin');
-        $user_id = $this->getUserId();
 
-        $data = Customer::where('users_id', $user_id)->paginate(10);
+        $data = Customer::latest()->paginate(10);
 
         return view('customerView.customerIndex', [
             'data' => $data
@@ -48,8 +47,6 @@ class CustomerController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
         ]);
-
-        $validatedRequest['users_id'] = $this->getUserId();
 
         Customer::create($validatedRequest);
 
