@@ -39,12 +39,16 @@ function create_calc(id, name, price, quantity, itemId) {
 
     let cell2 = $("<td>").css("width", "auto");
 
+    let qtyinput = $('<input>').attr('type', 'hidden').attr('id', `input-qty-${id}`).attr('name', 'quantity[]').attr('value', quantity);
+    row.append(qtyinput);
+
     let input = $("<input>")
         .attr("id", `qty-${id}`)
         .attr("type", "number")
         .attr("value", quantity)
         .change((event) => {
             let inputValue = event.target.value;
+            qtyinput.val(inputValue);
             addItem(id, price, inputValue, name, itemId);
         })
         .css("width", "60%");
@@ -96,6 +100,7 @@ function create_calc(id, name, price, quantity, itemId) {
 
     let inputItemId = $('<input>').attr('type', 'hidden').attr('name', 'itemId[]').attr('value', itemId);
     row.append(inputItemId);
+
 
     $("#calculation").append(row);
     addItem(id, price, quantity, name, itemId);
@@ -223,7 +228,6 @@ function render() {
                 element.name,
                 element.price,
                 element.quantity,
-                element.user_id,
                 element.itemId
             );
         }

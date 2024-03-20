@@ -22,7 +22,9 @@
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <p>Error. Please verify and check again.</p>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br>
+                    @endforeach
                 </div>
             @endif
             @if (session()->has('success'))
@@ -117,7 +119,8 @@
                             </label>
                         </span>
                         <span class="text-right">
-                            <input type="text" name="name" id="cusName" placeholder="Input Name" class="form-control">
+                            <input type="text" name="name" id="cusName" placeholder="Input Name"
+                                class="form-control">
                         </span>
                     </div>
 
@@ -128,7 +131,8 @@
                             </label>
                         </span>
                         <span class="text-right">
-                            <input type="text" name="email" id="cusEmail" placeholder="Input Email" class="form-control">
+                            <input type="text" name="email" id="cusEmail" placeholder="Input Email"
+                                class="form-control">
                         </span>
                     </div>
 

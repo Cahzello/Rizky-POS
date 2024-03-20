@@ -39,11 +39,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {   
-        dd($request);
-
+        
         $validatedRequest = $request->validate([
-            'item-name' => 'required|string',
+            'name' => 'required|string',
+            'email' => 'required|email',
         ]);
+        dd($request);
 
         return redirect(route('items.create'))->with('success', 'berhasil kayanya');
     }
