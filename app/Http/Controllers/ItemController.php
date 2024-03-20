@@ -21,7 +21,7 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $this->authorize('isAdmin');
 
         $filtered_data = Item::latest()->paginate(10);
@@ -29,7 +29,7 @@ class ItemController extends Controller
         $nama_category = $filtered_data->pluck('categories.name');
 
         // dd($filtered_data);
-        return view('itemView.itemIndex',[
+        return view('itemView.itemIndex', [
             'isLogin' => false,
             'data' => $filtered_data,
             'category' => $nama_category
@@ -40,12 +40,12 @@ class ItemController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
+    {
         $this->authorize('isAdmin');
 
         $data = Categories::get();
         // dd($data);
-        return view('itemView.itemCreate',[
+        return view('itemView.itemCreate', [
             'data' => $data
         ]);
     }
@@ -55,12 +55,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile('item_image')){
-            $path = $request->file('item_image')->store('ItemImage');
-        } else {
-            $path = null;
-        }
-    
+
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
@@ -70,7 +65,10 @@ class ItemController extends Controller
             'item_image' => 'image'
         ]);
 
-        $validatedRequest['item_image'] = $path;
+        if ($request->hasFile('item_image')) {
+            $path = $request->file('item_image')->store('ItemImage');
+            $validatedRequest['item_image'] = $path;
+        }
 
         Item::create($validatedRequest);
 
@@ -91,28 +89,21 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('isAdmin');    
+        $this->authorize('isAdmin');
 
         $data = Item::find($id);
-        $categories = Categories::get();
-        return view('itemView.itemEdit',[
+        $categories = Categories::get()->all();
+        return view('itemView.itemEdit', [
             'data' => $data,
             'categories' => $categories,
         ]);
-
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {   
-        if($request->hasFile('item_image')){
-            $path = $request->file('item_image')->store('ItemImage');
-        } else {
-            $path = null;
-        }
-    
+    {
         $validatedRequest = $request->validate([
             'name' => 'required|string',
             'price' => 'required|numeric',
@@ -122,11 +113,14 @@ class ItemController extends Controller
             'item_image' => 'image',
         ]);
 
-        $validatedRequest['item_image'] = $path;
+        if ($request->hasFile('item_image')) {
+            $path = $request->file('item_image')->store('ItemImage');
+            $validatedRequest['item_image'] = $path;
+        }
 
         Item::where('id', $id)->update($validatedRequest);
 
-        return redirect(route('items.edit'))->with('success', 'Data Successfully Updated');
+        return redirect(route('items.edit', $id))->with('success', 'Data Successfully Updated');
     }
 
     /**
@@ -138,5 +132,4 @@ class ItemController extends Controller
 
         return redirect(route('items.index'))->with('success', 'Data Successfully Deleted');
     }
-
 }

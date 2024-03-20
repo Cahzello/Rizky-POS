@@ -28,9 +28,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $user_id = $this->getUserId();
-
-        $data_item = Item::where('users_id', $user_id)->paginate(12);
+        $data_item = Item::latest()->paginate(12);
         return view('transactionsView.transactionsCreate', [
             'data_item' => $data_item
         ]);
