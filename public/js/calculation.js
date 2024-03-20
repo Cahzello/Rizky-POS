@@ -3,7 +3,7 @@ let total = [];
 const userIdInput = document.getElementById("userId").value;
 const clearBtn = document.getElementById("clearList");
 
-function create_list(id, name, price, quantity) {
+function create_list(id, name, price, quantity, itemId) {
     if (addedIds.has(id)) {
         alert("Duplicate entry is not allowed.");
         return;
@@ -12,7 +12,7 @@ function create_list(id, name, price, quantity) {
 
     addedIds.add(id);
     updateEmptyMessage(tbody);
-    create_calc(id, name, price, quantity);
+    create_calc(id, name, price, quantity, itemId);
 }
 
 function updateEmptyMessage(tbody) {
@@ -30,7 +30,7 @@ function updateEmptyMessage(tbody) {
     }
 }
 
-function create_calc(id, name, price, quantity) {
+function create_calc(id, name, price, quantity, itemId) {
     let tbody = $("#calculation_data");
     let row = $("<tr>");
 
@@ -45,7 +45,7 @@ function create_calc(id, name, price, quantity) {
         .attr("value", quantity)
         .change((event) => {
             let inputValue = event.target.value;
-            addItem(id, price, inputValue, name);
+            addItem(id, price, inputValue, name, itemId);
         })
         .css("width", "60%");
     cell2.append(input);
@@ -54,6 +54,7 @@ function create_calc(id, name, price, quantity) {
     cell2.append(jarak);
 
     let decrementButton = $("<button>")
+        .attr('type', 'button')
         .addClass("btn btn-outline-primary")
         .append($("<i>").addClass("fas fa-minus-circle"))
         .click(function () {
@@ -62,6 +63,7 @@ function create_calc(id, name, price, quantity) {
     cell2.append(decrementButton);
 
     let incrementButton = $("<button>")
+        .attr('type', 'button')
         .addClass("btn btn-outline-primary")
         .append($("<i>").addClass("fas fa-plus-circle"))
         .click(function () {
@@ -92,11 +94,14 @@ function create_calc(id, name, price, quantity) {
     cell4.append(trashButton);
     row.append(cell4);
 
+    let inputItemId = $('<input>').attr('type', 'hidden').attr('name', 'itemId[]').attr('value', itemId);
+    row.append(inputItemId);
+
     $("#calculation").append(row);
-    addItem(id, price, quantity, name);
+    addItem(id, price, quantity, name, itemId);
 }
 
-function addItem(id, price, quantity, name) {
+function addItem(id, price, quantity, name, itemId) {
     let item = total.find((item) => item.id === id);
     if (item) {
         item.quantity = quantity;
@@ -107,6 +112,7 @@ function addItem(id, price, quantity, name) {
             name: name,
             price: parseFloat(price),
             quantity: parseInt(quantity),
+            itemId: parseInt(itemId)
         });
     }
     sumPrice();
@@ -143,11 +149,15 @@ function decreaseQuantity(id) {
 }
 
 function sumPrice() {
+    let priceInput = document.getElementById('totalPriceInput');
+
     let totalPrice = total.reduce((total, item) => {
         return total + item.price * item.quantity;
     }, 0);
     let finalPrice = totalPrice.toFixed(0);
     updatePriceView(finalPrice);
+    priceInput.value = finalPrice;
+    console.log(finalPrice);
     return finalPrice;
 }
 
@@ -206,7 +216,6 @@ function clear() {
 }
 
 function render() {
-    console.log(total);
     total.forEach((element) => {
         if (element.user_id == userIdInput) {
             create_list(
@@ -214,7 +223,8 @@ function render() {
                 element.name,
                 element.price,
                 element.quantity,
-                element.user_id
+                element.user_id,
+                element.itemId
             );
         }
     });

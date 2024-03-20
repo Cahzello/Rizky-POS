@@ -34,22 +34,23 @@
         <div class="row">
             <div class="card-body col-lg-7">
                 <div class="container">
-                    {{$data_item->links('pagination::bootstrap-4')}}
+                    {{ $data_item->links('pagination::bootstrap-4') }}
                     <div class="row">
-                        <input type="hidden" id="userId" value="{{auth()->id()}}">
+                        <input type="hidden" id="userId" value="{{ auth()->id() }}">
                         @if ($data_item->total() <= 0)
                             <div class="col-lg-12">
                                 <div class="d-flex justify-content-center align-items-center flex-column">
                                     <h3>No Items Added</h3>
-                                    <a href="{{route('items.create')}}" class="btn btn-primary">Create Items</a>
+                                    <a href="{{ route('items.create') }}" class="btn btn-primary">Create Items</a>
                                 </div>
                             </div>
                         @else
                             @foreach ($data_item as $item)
                                 <div class="col-lg-4 p-2">
                                     <div class="card shadow-sm">
-                                        <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg'; }}" style="object-fit: cover;" class="rounded" alt="tadfs"
-                                            height="140px" width="100%">
+                                        <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg' }}"
+                                            style="object-fit: cover;" class="rounded" alt="tadfs" height="140px"
+                                            width="100%">
                                         <div class="card-body p-2">
                                             <p class="h6">{{ $item->name }}</p>
                                             <div class="d-flex justify-content-between align-items-center">
@@ -63,7 +64,7 @@
                                                 </div>
                                                 <div class="btn-group">
                                                     <button type="button"
-                                                        onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}', 1)"
+                                                        onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}', 1, {{ $item->id }})"
                                                         class="btn btn-sm btn-outline-primary">Add</button>
                                                 </div>
                                             </div>
@@ -73,42 +74,71 @@
                             @endforeach
                         @endif
                     </div>
-                    {{$data_item->links('pagination::bootstrap-4')}}
+                    {{ $data_item->links('pagination::bootstrap-4') }}
                 </div>
             </div>
             <div class="card-body col-lg-5">
-                <table class="table table-hover text-center" id="calculation" style="width: 100%">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Delete</th>
-                        </tr>
+                <form action="{{ route('transactions.store') }}" method="POST">
+                    @csrf
+                    <table class="table table-hover text-center" id="calculation" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                            </tr>
 
-                    </thead>
-                    <tbody id="calculation_data">
-                        <tr>
-                            <td colspan="4">The list is currently empty.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="calculation_data">
+                            <tr>
+                                <td colspan="4">The list is currently empty.</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <hr>
+                    <hr>
 
-                <div class="row">
-                    <span class="col">
-                        <p>Subtotal:</p>
-                    </span>
-                    <span class="col text-right">
-                        <p id="subtotal">0</p>
-                    </span>
-                </div>
+                    <div class="row">
+                        <span class="col">
+                            <p>Subtotal:</p>
+                        </span>
+                        <span class="col text-right">
+                            <p id="subtotal">0</p>
+                        </span>
+                    </div>
 
-                <hr>
+                    <hr>
 
-                <button id="clearList" class="btn btn-danger">Clear List</button>
-                <a href="" class="btn btn-primary">Charge</a>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>
+                            <label for="cusName">
+                                Customer Name:
+                            </label>
+                        </span>
+                        <span class="text-right">
+                            <input type="text" name="name" id="cusName" placeholder="Input Name" class="form-control">
+                        </span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span>
+                            <label for="cusEmail">
+                                Customer Email:
+                            </label>
+                        </span>
+                        <span class="text-right">
+                            <input type="text" name="email" id="cusEmail" placeholder="Input Email" class="form-control">
+                        </span>
+                    </div>
+
+                    <hr>
+
+                    <input type="hidden" value="" id="totalPriceInput" name="totalPrice">
+                    <button type="button" id="clearList" class="btn btn-danger">Clear List</button>
+                    <input type="submit" value="Charge" class="btn btn-primary">
+                </form>
+
             </div>
 
         </div>
