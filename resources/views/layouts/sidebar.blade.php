@@ -50,6 +50,12 @@
                 <i class="fas fa-fw fa-print"></i>
                 <span>Generate Reports</span></a>
         </li>
+
+        <li class="nav-item {{ request()->routeIs('list-users*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('list-users.index') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>List of Users</span></a>
+        </li>
     @endcan 
 
     <!-- Divider -->

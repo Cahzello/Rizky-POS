@@ -48,7 +48,7 @@
                             </div>
                         @else
                             @foreach ($data_item as $item)
-                                @if (!$item->stock_level >= 0)
+                                @if (!$item->stock_level == 0)
                                     <div class="col-lg-4 p-2">
                                         <div class="card shadow-sm">
                                             <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg' }}"

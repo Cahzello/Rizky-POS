@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -47,6 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/category', CategoryController::class);
 
     Route::resource('/customer', CustomerController::class);
+
+    Route::resource('/list-users', AdminController::class);
     
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
