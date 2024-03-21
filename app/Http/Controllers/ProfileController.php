@@ -31,7 +31,7 @@ class ProfileController extends Controller
 
         User::where('id', $userId)->update($validatedRequest);
 
-        return redirect(route('profile'))->with('success', 'Username Berhasil Diubah');
+        return redirect(route('profile'))->with('success', 'Username Successfully Updated');
     }
 
     public function email(Request $request)
@@ -43,7 +43,7 @@ class ProfileController extends Controller
 
         User::where('id', $userId)->update($validatedRequest);
 
-        return redirect(route('profile'))->with('success', 'Email Berhasil Diubah');
+        return redirect(route('profile'))->with('success', 'Email Successfully Updated');
     }
 
     public function password(Request $request)
@@ -62,7 +62,7 @@ class ProfileController extends Controller
 
         User::where('id', $userId)->update($validatedRequest);
 
-        return redirect(route('profile'))->with('success', 'Password Berhasil Diubah');
+        return redirect(route('profile'))->with('success', 'Password Successfully Updated');
     }
 
     public function upload(Request $request)
@@ -77,9 +77,9 @@ class ProfileController extends Controller
             $path = $request->file('avatar')->store('avatars');
             User::where('id', $userId)->update(array("path_file" => $path));
 
-            return redirect(route('profile'))->with('success', 'file berhasil diupload');            
+            return redirect(route('profile'))->with('success', 'Photo Successfully Uploaded');            
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to upload avatar'], 500);
+            return redirect(route('profile'))->withErrors('Upload Photo Failed, Try Again.');            
         }
     }
 }

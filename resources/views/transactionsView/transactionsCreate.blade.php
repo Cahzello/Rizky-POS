@@ -80,7 +80,7 @@
                 </div>
             </div>
             <div class="card-body col-lg-5">
-                <form action="{{ route('transactions.store') }}" method="POST">
+                <form action="{{ route('transactions.store') }}" method="POST" id="formListItems">
                     @csrf
                     <table class="table table-hover text-center" id="calculation" style="width: 100%">
                         <thead>
@@ -139,7 +139,7 @@
 
                     <input type="hidden" value="" id="totalPriceInput" name="totalPrice">
                     <button type="button" id="clearList" class="btn btn-danger">Clear List</button>
-                    <input type="submit" value="Charge" class="btn btn-primary">
+                    <input type="submit" id="charge" value="Charge" class="btn btn-primary">
                 </form>
 
             </div>

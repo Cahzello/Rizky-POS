@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
         Categories::create($validatedRequest);
 
-        return redirect(route('category.create'))->with('success', 'Success');
+        return redirect(route('category.create'))->with('success', 'Category Success Updated');
     }
 
     /**
@@ -86,7 +86,7 @@ class CategoryController extends Controller
 
         Categories::where('id', $id)->update($validatedRequest);
 
-        return redirect(route('category.edit', $id))->with('success', 'Success');
+        return redirect(route('category.edit', $id))->with('success', 'Category Success Updated');
     }
 
     /**

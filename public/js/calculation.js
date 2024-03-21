@@ -2,6 +2,8 @@ let addedIds = new Set();
 let total = [];
 const userIdInput = document.getElementById("userId").value;
 const clearBtn = document.getElementById("clearList");
+const chargeBtn = document.getElementById("charge");
+const formListItems = document.getElementById('formListItems');
 
 function create_list(id, name, price, quantity, itemId) {
     if (addedIds.has(id)) {
@@ -205,6 +207,10 @@ window.addEventListener("load", () => {
 clearBtn.addEventListener("click", () => {
     total = [];
     clear();
+});
+
+formListItems.addEventListener('submit', () => {
+    total = [];
 });
 
 function clear() {

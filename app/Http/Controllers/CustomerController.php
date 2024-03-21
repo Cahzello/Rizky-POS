@@ -50,7 +50,7 @@ class CustomerController extends Controller
 
         Customer::create($validatedRequest);
 
-        return redirect(route('customer.create'))->with('success', 'Success');
+        return redirect(route('customer.create'))->with('success', 'Customer Data Successfully Created');
     }
 
     /**
@@ -86,7 +86,7 @@ class CustomerController extends Controller
 
         Customer::where('id', $id)->update($validatedRequest);
 
-        return redirect(route('customer.edit', $id))->with('success', 'Success');
+        return redirect(route('customer.edit', $id))->with('success', 'Customer Data Successfully Updated');
 
     }
 
@@ -97,7 +97,7 @@ class CustomerController extends Controller
     {
         Customer::where('id', $id)->delete();
 
-        return redirect(route('customer.index'))->with('success', 'Success');
+        return redirect(route('customer.index'))->with('success', 'Customer Data Successfully Deleted');
 
     }
 }

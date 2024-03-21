@@ -18,7 +18,6 @@ class RoutingController extends Controller
 
     public function index ()
     {
-        $userId = $this->getUserId();
         $itemData = Item::latest()->first();
         $categoryData = Categories::latest()->first();
         $customerData = Customer::latest()->first();
