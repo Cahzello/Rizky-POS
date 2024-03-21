@@ -85,7 +85,29 @@ class TransactionController extends Controller
                 'quantity' => $request->quantity[$key]
             ];
 
+            $item = Item::find($value);
+            // dd($item->stock_level);
+
+            // Calculate the new stock level
+            $newStockLevel = $item->stock_level - $request->quantity[$key];
+
+            // Check if the new stock level is negative
+            if ($newStockLevel < 0) {
+                // Handle the case where the new stock level is negative
+                // For example, you might want to return an error response or throw an exception
+                return redirect(route('transactions.create'))->withErrors('Insufficient stock for item');
+            }
+
+            // Update the item's stock level
+            $item->stock_level = $newStockLevel;
+            $item->save(); // Save the updated stock level to the database
+
+            // Optionally, you can also create a transaction item here if needed
             Transactions_items::create($data);
+
+
+            // Transactions_items::create($data);
+
         }
 
         return redirect(route('transactions.index'))->with('success', 'Transactions Successfully Created');

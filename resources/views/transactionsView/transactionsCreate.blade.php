@@ -48,31 +48,33 @@
                             </div>
                         @else
                             @foreach ($data_item as $item)
-                                <div class="col-lg-4 p-2">
-                                    <div class="card shadow-sm">
-                                        <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg' }}"
-                                            style="object-fit: cover;" class="rounded" alt="tadfs" height="140px"
-                                            width="100%">
-                                        <div class="card-body p-2">
-                                            <p class="h6">{{ $item->name }}</p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <small class="text-body-secondary">Stock:</small>
-                                                    <small class="text-body-secondary">{{ $item->stock_level }}</small>
-                                                    <br>
-                                                    <small class="text-body-secondary">price:</small>
-                                                    <small
-                                                        class="text-body-secondary">{{ number_format($item->price, 0, '.', '.') }}</small>
-                                                </div>
-                                                <div class="btn-group">
-                                                    <button type="button"
-                                                        onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}', 1, {{ $item->id }})"
-                                                        class="btn btn-sm btn-outline-primary">Add</button>
+                                @if (!$item->stock_level >= 0)
+                                    <div class="col-lg-4 p-2">
+                                        <div class="card shadow-sm">
+                                            <img src="{{ $item->item_image ? asset($item->item_image) : '/img/groc_bag.svg' }}"
+                                                style="object-fit: cover;" class="rounded" alt="tadfs" height="140px"
+                                                width="100%">
+                                            <div class="card-body p-2">
+                                                <p class="h6">{{ $item->name }}</p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <small class="text-body-secondary">Stock:</small>
+                                                        <small class="text-body-secondary">{{ $item->stock_level }}</small>
+                                                        <br>
+                                                        <small class="text-body-secondary">price:</small>
+                                                        <small
+                                                            class="text-body-secondary">{{ number_format($item->price, 0, '.', '.') }}</small>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button"
+                                                            onclick="create_list({{ $item->id }}, '{{ $item->name }}', '{{ number_format($item->price, 0, '.', '') }}', 1, {{ $item->id }})"
+                                                            class="btn btn-sm btn-outline-primary">Add</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         @endif
                     </div>
@@ -119,7 +121,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" name="name" id="cusName" placeholder="Input Name" class="form-control">
+                            <input type="text" name="name" id="cusName" placeholder="Input Name"
+                                class="form-control">
                         </div>
                     </div>
 
@@ -130,7 +133,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                             </div>
-                            <input type="text" name="email" id="cusEmail" placeholder="Input Email" class="form-control">
+                            <input type="text" name="email" id="cusEmail" placeholder="Input Email"
+                                class="form-control">
                         </div>
                     </div>
 

@@ -211,6 +211,7 @@ clearBtn.addEventListener("click", () => {
 
 formListItems.addEventListener('submit', () => {
     total = [];
+    localStorage.setItem("total", JSON.stringify(total));
 });
 
 function clear() {
