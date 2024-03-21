@@ -37,28 +37,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            @if (false)
-                                <td>1</td>
-                                <td>udin</td>
-                                <td>fath</td>
-                                <td>10000000</td>
-                                <td>123455</td>
-                                <td>
-                                    <a href="" title="Edit Transactions" class="btn btn-warning"><i
-                                            class="fas fa-pen-square "></i> Edit Data</a>
-                                </td>
-                                <td>
-                                    <a href="" title="Delete Transactions" class="btn btn-danger"><i
-                                            class="fas fa-trash "></i> Delete Data</a>
+                        @if ($data->count() > 0)
+                            @foreach ($data as $key => $item)
+                                <tr>
+                                    <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>
+                                    <td>{{ $userName[$key] }}</td>
+                                    <td>{{ $customerName[$key] }}</td>
+                                    <td>Rp {{ number_format($item->total_amount) }}</td>
+                                    <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</td>
+                                    <td style="width: 10%;">
+                                        <a href="{{ route('transactions.show', $item->id) }}" title="Edit"
+                                            class="btn btn-warning"><i class="fas fa-pen-square"></i> </a>
+                                    </td>
+                                    <td style="width: 10%;">
+                                        <form action="{{ route('transactions.destroy', $item->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button title="Delete" class="btn btn-danger"
+                                                onclick="return confirm('Are you want to delete this data?')"><i
+                                                    class="fas fa-trash "></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="8">No Data</td>
+                            </tr>
+                        @endif
 
-                                </td>
-                            @else
-                                <td colspan="6">No Data</td>
-                            @endif
-                        </tr>
                     </tbody>
                 </table>
+                {{ $data->links('pagination::bootstrap-4') }}
+
             </div>
         </div>
     </div>

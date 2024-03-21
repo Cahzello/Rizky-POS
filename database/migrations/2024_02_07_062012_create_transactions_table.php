@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('customer_id')->constrained();
+            $table->foreignId('users_id')->constrained();
+            $table->foreignId('customers_id')->constrained();
             $table->decimal('total_amount', 15, 2);
             $table->timestamps();
         });

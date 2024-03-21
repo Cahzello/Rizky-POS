@@ -24,7 +24,14 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('transactionsView.transactionsIndex');
+        $transactionsData = Transactions::latest()->paginate(10);
+        $userName = $transactionsData->pluck('users.username');
+        $customerName = $transactionsData->pluck('customers.name');
+        return view('transactionsView.transactionsIndex', [
+            'data' => $transactionsData,
+            'userName' => $userName,
+            'customerName' => $customerName,
+        ]);
     }
 
     /**
@@ -64,7 +71,7 @@ class TransactionController extends Controller
         
         $transactionsCredentials = [
             'users_id' => $userId,
-            'customer_id' => $customerData->id,
+            'customers_id' => $customerData->id,
             'total_amount' => $request->totalPrice,
         ];
 
@@ -80,7 +87,7 @@ class TransactionController extends Controller
             Transactions_items::create($data);
         }
 
-        return redirect(route('items.index'))->with('success', 'berhasil kayanya');
+        return redirect(route('transactions.index'))->with('success', 'Transactions Successfully Created');
     }
 
     /**

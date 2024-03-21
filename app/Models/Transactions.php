@@ -7,7 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transactions extends Model
 {
+    protected $guarded = ['id'];
     protected $table = 'transactions';
 
     use HasFactory;
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function customers()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

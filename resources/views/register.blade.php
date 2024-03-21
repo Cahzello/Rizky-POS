@@ -36,12 +36,12 @@
                         <div class="form-group">
                             <label for="username">Username: </label>
                             <input type="text" id="username" name="username" class="form-control rounded-left"
-                                placeholder="Input Username">
+                                placeholder="Input Username" value="{{old('username')}}">
                         </div>
                         <div class="form-group">
                             <label for="email">Email: </label>
                             <input type="email" id="email" name="email" class="form-control rounded-left"
-                                placeholder="Input Email">
+                                placeholder="Input Email" value="{{old('email')}}">
                         </div>
                         <div class="form-group">
                             <label for="password">Password: </label>

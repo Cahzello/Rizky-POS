@@ -27,8 +27,6 @@ class ItemController extends Controller
         $filtered_data = Item::latest()->paginate(10);
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
         $nama_category = $filtered_data->pluck('categories.name');
-
-        // dd($filtered_data);
         return view('itemView.itemIndex', [
             'isLogin' => false,
             'data' => $filtered_data,
