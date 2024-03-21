@@ -7,8 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transactions_items extends Model
 {   
+    use HasFactory;
+
     protected $guarded = ['id'];
     protected $table = 'transactions_items';
     
-    use HasFactory;
+    public function transactions()
+    {
+        return $this->belongsTo(Transactions::class);
+    }    
+
+    public function items()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Transactions;
 use App\Models\Transactions_items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Symfony\Component\CssSelector\Node\FunctionNode;
 
 class TransactionController extends Controller
 {
@@ -49,11 +50,11 @@ class TransactionController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $userId = $this->getUserId();
         // dd($request);
 
-        if(!$request->has('itemid') && !$request->has('quantity')){
+        if (!$request->has('itemid') && !$request->has('quantity')) {
             return redirect(route('transactions.create'))->withErrors('Item list cannot be empty!');
         }
 
@@ -67,8 +68,8 @@ class TransactionController extends Controller
             'email' => $request->email,
         ];
 
-        $customerData= Customer::create($customerCredentials);
-        
+        $customerData = Customer::create($customerCredentials);
+
         $transactionsCredentials = [
             'users_id' => $userId,
             'customers_id' => $customerData->id,
@@ -79,7 +80,7 @@ class TransactionController extends Controller
 
         foreach ($request->itemId as $key => $value) {
             $data = [
-                'item_id' => $value,
+                'items_id' => $value,
                 'transaction_id' => $transactionData->id,
                 'quantity' => $request->quantity[$key]
             ];
@@ -95,7 +96,35 @@ class TransactionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Fetch the transaction and related data
+        $transaksi = Transactions::with(['users', 'customers'])->find($id);
+
+        // Extract the cashier and customer names directly from the transaction
+        $cashierName = $transaksi->users->username;
+        $customerName = $transaksi->customers->name;
+
+        // Fetch all transaction items associated with the transaction ID
+        $transactionItems = Transactions_items::with('items')->where('transaction_id', $id)->get();
+
+        // Prepare the final array with both transaction item data and item details
+        $allItemData = $transactionItems->map(function ($transactionItem) {
+            return $transactionItem->items;
+        })->all();
+
+        $categories = array_map(function ($item) {
+            return $item->categories->name;
+        }, $allItemData);
+
+        // dd($transactionItems);
+
+        return view('transactionsView.transactionsShow', [
+            'transactionData' => $transaksi,
+            'transactionItem' => $transactionItems,
+            'itemData' => $allItemData,
+            'category' => $categories,
+            'cashierName' => $cashierName,
+            'customerName' => $customerName,
+        ]);
     }
 
     /**

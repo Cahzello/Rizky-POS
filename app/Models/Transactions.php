@@ -21,4 +21,9 @@ class Transactions extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function transactionsItems()
+    {
+        return $this->hasMany(Transactions_items::class);
+    }
 }

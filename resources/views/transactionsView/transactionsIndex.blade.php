@@ -28,12 +28,16 @@
                 <table class="table table-striped table-bordered table-hover text-center">
                     <thead class="thead-dark">
                         <tr>
-                            <th>No</th>
-                            <th>Cashier Name</th>
-                            <th>Customer Name</th>
-                            <th>Total Amount</th>
-                            <th>Timestamps</th>
-                            <th colspan="2">Actions</th>
+                            <th rowspan="2" class="align-middle">No</th>
+                            <th rowspan="2" class="align-middle">Cashier Name</th>
+                            <th rowspan="2" class="align-middle">Customer Name</th>
+                            <th rowspan="2" class="align-middle">Total Amount</th>
+                            <th rowspan="2" class="align-middle">Timestamps</th>
+                            <th colspan="2" class="align-middle">Actions</th>
+                        </tr>
+                        <tr>
+                            <th>Show</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,7 +51,7 @@
                                     <td>{{ $item->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</td>
                                     <td style="width: 10%;">
                                         <a href="{{ route('transactions.show', $item->id) }}" title="Edit"
-                                            class="btn btn-warning"><i class="fas fa-pen-square"></i> </a>
+                                            class="btn btn-success"><i class="fas fa-eye"></i> </a>
                                     </td>
                                     <td style="width: 10%;">
                                         <form action="{{ route('transactions.destroy', $item->id) }}" method="POST">
