@@ -31,25 +31,61 @@
         </div>
         <div class="card-body">
             <h2 class="text-gray-800 mb-3">Report Between </h2>
+            <h2 class="text-dark mb-3 h3">Sales Summary</h2>
             <div class="table-responsive-md">
                 <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
                     <thead class="thead-dark">
                         <tr>
-                            <th rowspan="2" class="align-middle">No</th>
-                            <th rowspan="2" class="align-middle">Nama Item</th>
-                            <th rowspan="2" class="align-middle">Stock</th>
-                            <th rowspan="2" class="align-middle">Price</th>
-                            <th rowspan="2" class="align-middle">Cost Price</th>
-                            <th rowspan="2" class="align-middle">Category</th>
-                            <th colspan="2">Actions</th>
-                        </tr>
-                        <tr>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th class="align-middle">Total Transactions</th>
+                            <th class="align-middle">Total Sales</th>
+                            <th class="align-middle">Average Transactions Value</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td>dfsdf</td>
+                            <td>sfdsf</td>
+                            <td>sdfdsf</td>
+                        </tr>
 
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="text-dark mb-3 h3">Sales Product Report</h2>
+            <div class="table-responsive-md">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="align-middle">Item Name</th>
+                            <th class="align-middle">Total Sold</th>
+                            <th class="align-middle">Average Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dfsdf</td>
+                            <td>sfdsf</td>
+                            <td>sdfdsf</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="text-dark mb-3 h3">Iventory Status</h2>
+            <div class="table-responsive-md">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="align-middle">Item Name</th>
+                            <th class="align-middle">Stock Level</th>
+                            <th class="align-middle">Stock Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dfsdf</td>
+                            <td>sfdsf</td>
+                            <td>sdfdsf</td>
+                        </tr>
 
                     </tbody>
                 </table>

@@ -38,6 +38,8 @@ class ReportController extends Controller
         $inventoryStatus = $this->inventoryStatusReport($request->start_date, $request->end_date);
 
         dd($salesSummary, $salesProductReport, $inventoryStatus);
+
+        return redirect(route('reports.index'))->with('success', 'Report Successfully Generated');
     }
 
     /**

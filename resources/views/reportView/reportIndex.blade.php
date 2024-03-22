@@ -62,29 +62,31 @@
                         @enderror
                     </div>
                 </div>
-                <div>
-                    <p>Checkbox</p>
-                    <div class="input-group mb-3 w-50">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox" name="transactionsReport" aria-label="Checkbox for following text input">
-                            </div>
-                        </div>
-                        <p class="form-control">Report Transactions</p>
-                    </div>
-                    <div class="input-group mb-3 w-50">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox" name="itemStockReport" aria-label="Checkbox for following text input">
-                            </div>
-                        </div>
-                        <p class="form-control">Report Item Stock</p>
-                    </div>
-                </div>
 
                 <input type="submit" value="Submit" class="btn btn-primary">
             </form>
 
+            
+            <div class="table-responsive-md my-4">
+                <h2 class="text-dark mb-3 h3">Reports Data</h2>
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th class="align-middle">No</th>
+                            <th class="align-middle">Date Report Created</th>
+                            <th class="align-middle">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width: 10%;">1</td>
+                            <td>sfdsf</td>
+                            <td>sdfdsf</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
