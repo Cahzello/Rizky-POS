@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/customer', CustomerController::class);
 
     Route::resource('/list-users', AdminController::class);
+
+    Route::resource('/reports', ReportController::class);
     
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 
