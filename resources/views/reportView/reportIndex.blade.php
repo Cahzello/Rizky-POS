@@ -66,7 +66,7 @@
                 <input type="submit" value="Submit" class="btn btn-primary">
             </form>
 
-            
+
             <div class="table-responsive-md my-4">
                 <h2 class="text-dark mb-3 h3">Reports Data</h2>
                 <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
@@ -78,11 +78,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td style="width: 10%;">1</td>
-                            <td>sfdsf</td>
-                            <td>sdfdsf</td>
-                        </tr>
+                        @if ($data->count() == 0)
+                            <tr>
+                                <td colspan="3">No Report Created.</td>
+                            </tr>
+                        @else
+                            @foreach ($data as $key => $item)
+                                <tr>
+                                    <td style="width: 10%;"> {{ $key + 1 }} </td>
+                                    <td>{{ $item->created_at->toRfc850String() }}</td>
+                                    <td>
+                                        <a href="{{ route('reports.show', $item->id) }}" title="Edit"
+                                            class="btn btn-primary"><i class="fas fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
 
                     </tbody>
                 </table>

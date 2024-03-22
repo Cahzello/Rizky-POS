@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sales_by_product;
+use App\Models\Sales_summary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,8 +13,11 @@ class ReportController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('reportView.reportIndex');
+    {   
+        $data = Sales_summary::latest()->get();
+        return view('reportView.reportIndex', [
+            'data' => $data
+        ]);
     }
 
     /**
@@ -35,9 +40,37 @@ class ReportController extends Controller
 
         $salesSummary = $this->salesSummaryReport($request->start_date, $request->end_date);
         $salesProductReport = $this->salesByProductReport($request->start_date, $request->end_date);
-        $inventoryStatus = $this->inventoryStatusReport($request->start_date, $request->end_date);
 
-        dd($salesSummary, $salesProductReport, $inventoryStatus);
+        // dd($salesSummary, $salesProductReport);
+        if($salesSummary->total_sales == null || $salesSummary->total_transactions == 0){
+            return redirect(route('reports.index'))->withErrors('No Sales has been created or transactions created within time, please try other time.');
+        }
+
+        $arraySalesSummary = [
+            'users_id' => auth()->id(),
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'total_transactions' => $salesSummary->total_transactions,
+            'total_sales' => $salesSummary->total_sales,
+        ];
+
+        // dd($arraySalesSummary);
+
+        $salesSummaryItem = Sales_summary::create($arraySalesSummary);
+
+        foreach ($salesProductReport as $key => $value) {
+            $arrayByProduct = [
+                'users_id' => auth()->id(),
+                'sales_summary_id' => $salesSummaryItem->id,
+                'name' => $value->name,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'total_sold' => $value->total_sold,
+                'total_sales' => $value->total_sales,
+            ];
+
+            Sales_by_product::create($arrayByProduct);
+        }
 
         return redirect(route('reports.index'))->with('success', 'Report Successfully Generated');
     }
@@ -47,7 +80,13 @@ class ReportController extends Controller
      */
     public function show(string $id)
     {
-        return view('reportView.reportShow');
+        $salesSummary = Sales_summary::find($id);
+        $salesByProduct = Sales_by_product::find($salesSummary->id)->all();
+        // dd($salesByProduct);
+        return view('reportView.reportShow', [
+            'salesSummary' => $salesSummary,
+            'salesByProduct' => $salesByProduct,
+        ]);
     }
 
     /**
@@ -104,17 +143,4 @@ class ReportController extends Controller
         return $report;
     }
 
-    public function inventoryStatusReport($startTimestamp, $endTimestamp)
-    {
-        $report = DB::table('items')
-            ->whereBetween('created_at', [$startTimestamp, $endTimestamp])
-            ->select(
-                'name',
-                'stock_level',
-                DB::raw('CASE WHEN stock_level <= 5 THEN "Low Stock" ELSE "In Stock" END as stock_status')
-            )
-            ->get();
-
-        return $report;
-    }
 }

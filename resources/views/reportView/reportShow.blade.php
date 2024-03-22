@@ -36,22 +36,21 @@
             @endif
         </div>
         <div class="card-body">
-            <h2 class="text-gray-800 mb-3">Report Between </h2>
+            <h2 class="text-gray-800 mb-3">Report Between ({{ $salesSummary->start_date }}) -
+                ({{ $salesSummary->end_date }})</h2>
             <h2 class="text-dark mb-3 h3">Sales Summary</h2>
             <div class="table-responsive-md">
-                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 75%;">
                     <thead class="thead-dark">
                         <tr>
                             <th class="align-middle">Total Transactions</th>
                             <th class="align-middle">Total Sales</th>
-                            <th class="align-middle">Average Transactions Value</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>dfsdf</td>
-                            <td>sfdsf</td>
-                            <td>sdfdsf</td>
+                            <td>{{ $salesSummary->total_transactions }}</td>
+                            <td>Rp {{ number_format($salesSummary->total_sales) }}</td>
                         </tr>
 
                     </tbody>
@@ -59,39 +58,22 @@
             </div>
             <h2 class="text-dark mb-3 h3">Sales Product Report</h2>
             <div class="table-responsive-md">
-                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 75%;">
                     <thead class="thead-dark">
                         <tr>
                             <th class="align-middle">Item Name</th>
                             <th class="align-middle">Total Sold</th>
-                            <th class="align-middle">Average Sales</th>
+                            <th class="align-middle">Total Sales</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>dfsdf</td>
-                            <td>sfdsf</td>
-                            <td>sdfdsf</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <h2 class="text-dark mb-3 h3">Iventory Status</h2>
-            <div class="table-responsive-md">
-                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th class="align-middle">Item Name</th>
-                            <th class="align-middle">Stock Level</th>
-                            <th class="align-middle">Stock Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>dfsdf</td>
-                            <td>sfdsf</td>
-                            <td>sdfdsf</td>
-                        </tr>
+                        @foreach ($salesByProduct as $item)
+                            <tr>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->total_sold }}</td>
+                                <td>Rp {{ number_format($item->total_sales) }}</td>
+                            </tr>
+                        @endforeach
 
                     </tbody>
                 </table>

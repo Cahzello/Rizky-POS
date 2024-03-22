@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('users_id')->constrained();
             $table->foreignId('sales_summary_id')->references('id')->on('sales_summary');
+            $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('total_sold');
