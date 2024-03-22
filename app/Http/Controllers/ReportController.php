@@ -81,7 +81,6 @@ class ReportController extends Controller
             ->select(
                 DB::raw('COUNT(*) as total_transactions'),
                 DB::raw('SUM(total_amount) as total_sales'),
-                DB::raw('AVG(total_amount) as average_transaction_value')
             )
             ->first();
 

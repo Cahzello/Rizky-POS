@@ -1,7 +1,13 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex-column align-items-center justify-content-between mb-4">
+        <a href="{{ route('reports.index') }}" class="btn btn-secondary btn-icon-split mb-2">
+            <span class="icon text-white-100">
+                <i class="fas fa-arrow-alt-circle-left"></i>
+            </span>
+            <span class="text">Go Back</span>
+        </a>
         <h1 class="h3 mb-0 text-gray-800">Report Result</h1>
     </div>
 
