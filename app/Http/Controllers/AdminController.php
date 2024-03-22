@@ -66,9 +66,19 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         // dd($request->role);
+        $userData = User::find(auth()->id());
+        $userDataRequest = User::find($id);
 
         if($request->role == 'selected'){
             return redirect(route('list-users.show', $id))->withErrors('Please Select The Available Options In Dropdowns');
+        }
+
+        if($id == auth()->id()){
+            return redirect(route('list-users.show', $id))->withErrors('Cannot Change your own role.');
+        }
+
+        if($userData->role == 'admin' && $userDataRequest->role == 'owner'){
+            return redirect(route('list-users.show', $id))->withErrors('Cannot Change Owner Role.');
         }
 
         $userData = User::find($id);
