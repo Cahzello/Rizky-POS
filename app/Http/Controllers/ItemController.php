@@ -27,6 +27,7 @@ class ItemController extends Controller
         $filtered_data = Item::latest()->paginate(10);
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
         $nama_category = $filtered_data->pluck('categories.name');
+        // dd($nama_category);
         return view('itemView.itemIndex', [
             'isLogin' => false,
             'data' => $filtered_data,
@@ -63,6 +64,11 @@ class ItemController extends Controller
             'item_image' => 'image'
         ]);
 
+        if($request->categories_id == 'select'){
+            unset($validatedRequest['categories_id']);
+        }
+
+        // dd($validatedRequest);
         if ($request->hasFile('item_image')) {
             $path = $request->file('item_image')->store('ItemImage');
             $validatedRequest['item_image'] = $path;

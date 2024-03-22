@@ -65,7 +65,7 @@
                                     <td {{$item->stock_level == 0 ? 'class=table-danger' : ''}}>{{$item->stock_level}}</td>
                                     <td>Rp {{number_format($item->price)}}</td>
                                     <td>Rp {{number_format($item->cost_price)}}</td>
-                                    <td>{{ $category[$key]}}</td>
+                                    <td>{{ $category[$key] == NULL ? 'Category hasn\'t been set' : $category[$key]}}</td>
                                     <td style="width: 10%;">
                                         <a href="{{route('items.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square"></i> </a>
