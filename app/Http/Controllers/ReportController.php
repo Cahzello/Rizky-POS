@@ -37,11 +37,11 @@ class ReportController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
+        
 
         $salesSummary = $this->salesSummaryReport($request->start_date, $request->end_date);
         $salesProductReport = $this->salesByProductReport($request->start_date, $request->end_date);
 
-        // dd($salesSummary, $salesProductReport);
         if($salesSummary->total_sales == null || $salesSummary->total_transactions == 0){
             return redirect(route('reports.index'))->withErrors('No Sales has been created or transactions created within time, please try other time.');
         }
