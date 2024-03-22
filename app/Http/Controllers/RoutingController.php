@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\Customer;
 use App\Models\Item;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use App\Models\Transactions;
 
 class RoutingController extends Controller
 {
@@ -21,9 +20,18 @@ class RoutingController extends Controller
         $itemData = Item::latest()->first();
         $categoryData = Categories::latest()->first();
         $customerData = Customer::latest()->first();
+        $transactionData = Transactions::with('customers')->where('users_id', auth()->id())->latest()->first();
+        $cusData = $transactionData->customers;
+
         return view('dashboard', [
             'active' => 'dashboard',
-            'data' => array('itemData' => $itemData, 'categoryData' => $categoryData, 'customerData' => $customerData)
+            'data' => array(
+                'itemData' => $itemData,
+                'categoryData' => $categoryData, 
+                'customerData' => $customerData,
+                'transactionData' => $transactionData,
+                'customerData' => $cusData,
+                )
         ]);
 
     }

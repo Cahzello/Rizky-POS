@@ -14,6 +14,8 @@ class ReportController extends Controller
      */
     public function index()
     {   
+        $this->authorize('isAdmin');
+
         $data = Sales_summary::latest()->get();
         return view('reportView.reportIndex', [
             'data' => $data
@@ -80,6 +82,8 @@ class ReportController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('isAdmin');
+
         $salesSummary = Sales_summary::find($id);
         $salesByProduct = Sales_by_product::find($salesSummary->id)->all();
         // dd($salesByProduct);

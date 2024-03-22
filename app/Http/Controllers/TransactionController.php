@@ -25,7 +25,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactionsData = Transactions::latest()->paginate(10);
+        $transactionsData = Transactions::where('users_id', auth()->id())->latest()->paginate(10);
         $userName = $transactionsData->pluck('users.username');
         $customerName = $transactionsData->pluck('customers.name');
         return view('transactionsView.transactionsIndex', [

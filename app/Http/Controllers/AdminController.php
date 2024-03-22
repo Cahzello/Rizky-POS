@@ -14,6 +14,7 @@ class AdminController extends Controller
      */
     public function index() 
     {   
+        $this->authorize('isAdmin');
         $data = User::paginate(10);
         return view('AdminView.adminIndex', [
             'data' => $data
@@ -41,6 +42,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('isAdmin');
+
         $userData = User::find($id);
         // dd($userData);
 
