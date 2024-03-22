@@ -23,7 +23,11 @@
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <p>Error. Please verify and check again.</p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
             @if (session()->has('success'))
@@ -33,7 +37,7 @@
             @endif
         </div>
         <div class="card-body">
-            <form action="{{route('list-users.update', $data->id)}}" method="post">
+            <form action="{{ route('list-users.update', $data->id) }}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="input-group mb-3">
@@ -54,7 +58,7 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Change Role: </span>
                     <select name="role" class="form-select" aria-label="Default select example">
-                        <option value="NULL" selected>Open this select menu</option>
+                        <option value="selected" selected>Open this select menu</option>
                         <option value="admin">admin</option>
                         <option value="user">user</option>
                     </select>
@@ -68,7 +72,7 @@
                 <input type="submit" class="btn btn-danger" value="Delete Account"
                     onclick="return confirm('Apakah anda mau menghapus akun ini? ')">
                 <div class="alert alert-danger my-3">
-                    <p>This action take delete the account and all records data have been created.</p>
+                    <p>This action take delete all transactions have been created within this account.</p>
                 </div>
             </form>
         </div>

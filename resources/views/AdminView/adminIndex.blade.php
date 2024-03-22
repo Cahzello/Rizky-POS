@@ -16,7 +16,9 @@
             </div>
             @if ($errors->any())
                 <div class="alert alert-danger">
-                    <p>Error. Please verify and check again.</p>
+                    @foreach ($errors->all() as $error)
+                        {{ $error }} <br>
+                    @endforeach
                 </div>
             @endif
             @if (session()->has('success'))

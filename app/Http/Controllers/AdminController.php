@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transactions;
+use App\Models\Transactions_items;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -60,10 +62,10 @@ class AdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($request);
+        // dd($request->role);
 
-        if($request->role == null){
-            return redirect(route('list-users', $id))->withErrors('Please Select The Available Options In Dropdowns');
+        if($request->role == 'selected'){
+            return redirect(route('list-users.show', $id))->withErrors('Please Select The Available Options In Dropdowns');
         }
 
         $userData = User::find($id);
@@ -79,6 +81,21 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $userId = auth()->id();
+
+        $userPromptDelete =  User::find($userId);
+        $userData =  User::find($id);
+
+        if($userPromptDelete->role === 'admin' && $userData->role === 'admin'){
+            abort(403);
+        }
+
+        Transactions_items::where('transaction_id', $id)->delete();
+
+        Transactions::where('users_id', $id)->delete();
+
+        User::where('id', $id)->delete();
+
+        return redirect(route('list-users.index'))->with('success', 'User Successfully Deleted');
     }
 }
