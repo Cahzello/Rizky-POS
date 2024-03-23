@@ -109,12 +109,16 @@ class AdminController extends Controller
 
         $userPromptDelete =  User::find($userId);
         $userData =  User::find($id);
-
+        $transactionData = Transactions::where('users_id', $id)->get();
+        
+        
         if($userPromptDelete->role === 'admin' && $userData->role === 'admin'){
             abort(403);
         }
 
-        Transactions_items::where('transaction_id', $id)->delete();
+        foreach($transactionData as $key => $value){
+            Transactions_items::where('transaction_id', $value->id)->delete();
+        }
 
         Transactions::where('users_id', $id)->delete();
 

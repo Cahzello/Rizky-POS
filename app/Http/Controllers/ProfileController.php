@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         $userdata = User::find($this->getUserId());
-        return view('profileUser.profileIndex', [
+        return view('profileUser.profileindex', [
             'user' => $userdata
         ]);
     }
@@ -55,7 +55,7 @@ class ProfileController extends Controller
         ]);
 
         if ($validatedRequest['password'] !== $request->pass_repeat) {
-            return redirect(route('profile.index'))->withErrors('Password isn\'t match!');
+            return redirect(route('profile'))->withErrors('Password isn\'t match!');
         }
 
         $validatedRequest['password'] = bcrypt($validatedRequest['password']);

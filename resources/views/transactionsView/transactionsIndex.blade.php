@@ -51,7 +51,9 @@
                         </tr>
                         <tr>
                             <th>Show</th>
-                            <th>Delete</th>
+                            @if (Gate::any(['owner', 'isAdmin']))
+                                <th>Delete</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -67,15 +69,17 @@
                                         <a href="{{ route('transactions.show', $item->id) }}" title="Edit"
                                             class="btn btn-success"><i class="fas fa-eye"></i> </a>
                                     </td>
-                                    <td style="width: 10%;">
-                                        <form action="{{ route('transactions.destroy', $item->id) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button title="Delete" class="btn btn-danger"
-                                                onclick="return confirm('Are you want to delete this data?')"><i
-                                                    class="fas fa-trash "></i></button>
-                                        </form>
-                                    </td>
+                                    @if (Gate::any(['owner', 'isAdmin']))
+                                        <td style="width: 10%;">
+                                            <form action="{{ route('transactions.destroy', $item->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button title="Delete" class="btn btn-danger"
+                                                    onclick="return confirm('Are you want to delete this data?')"><i
+                                                        class="fas fa-trash "></i></button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @else

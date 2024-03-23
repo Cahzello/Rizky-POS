@@ -25,7 +25,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactionsData = Transactions::where('users_id', auth()->id())->latest()->paginate(10);
+        $transactionsData = Transactions::latest()->paginate(10);
         $userName = $transactionsData->pluck('users.username');
         $customerName = $transactionsData->pluck('customers.name');
         return view('transactionsView.transactionsIndex', [
@@ -66,6 +66,11 @@ class TransactionController extends Controller
         foreach ($request->itemId as $key => $value) {
             $item = Item::find($value);
             $newStockLevel = $item->stock_level - $request->quantity[$key];
+
+            // check if quantity input below 1
+            if($request->quantity[$key] <= 0){
+                return redirect(route('transactions.create'))->withErrors('Quantity cannot below zero.');
+            }
 
             // Check if the new stock level is negative
             if ($newStockLevel < 0) {
@@ -169,6 +174,9 @@ class TransactionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Transactions_items::where('transaction_id', $id)->delete();
+        Transactions::find($id)->delete();
+
+        return redirect(route('transactions.index'))->with('success', 'Transaction Successfully deleted');
     }
 }

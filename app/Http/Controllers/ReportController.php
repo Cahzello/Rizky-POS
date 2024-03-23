@@ -13,7 +13,7 @@ class ReportController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         if (auth()->user()->role == 'admin') {
             $this->authorize('isAdmin');
         }
@@ -44,12 +44,18 @@ class ReportController extends Controller
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
-        
+
+        if ($request->start_date > $request->end_date) {
+            return redirect(route('reports.index'))->withErrors('Start date cant inputted bigger than end date.');
+        }
+
 
         $salesSummary = $this->salesSummaryReport($request->start_date, $request->end_date);
         $salesProductReport = $this->salesByProductReport($request->start_date, $request->end_date);
 
-        if($salesSummary->total_sales == null || $salesSummary->total_transactions == 0){
+        // dd($salesProductReport, $salesSummary);
+
+        if ($salesSummary->total_sales == null || $salesSummary->total_transactions == 0) {
             return redirect(route('reports.index'))->withErrors('No Sales has been created or transactions created within time, please try other time.');
         }
 
@@ -94,6 +100,7 @@ class ReportController extends Controller
             $this->authorize('owner');
         }
 
+
         $salesSummary = Sales_summary::find($id);
         $salesByProduct = Sales_by_product::find($salesSummary->id)->all();
         // dd($salesByProduct);
@@ -129,8 +136,19 @@ class ReportController extends Controller
 
     public function salesSummaryReport($startTimestamp, $endTimestamp)
     {
+        // Convert the start and end timestamps to DateTime objects if they are not already
+        if (!($startTimestamp instanceof \DateTime)) {
+            $startTimestamp = new \DateTime($startTimestamp);
+        }
+        if (!($endTimestamp instanceof \DateTime)) {
+            $endTimestamp = new \DateTime($endTimestamp);
+        }
+
+        $endOfDay = clone $endTimestamp;
+        $endOfDay->setTime(23, 59, 59);
+
         $summary = DB::table('transactions')
-            ->whereBetween('created_at', [$startTimestamp, $endTimestamp])
+            ->whereBetween('created_at', [$startTimestamp, $endOfDay])
             ->select(
                 DB::raw('COUNT(*) as total_transactions'),
                 DB::raw('SUM(total_amount) as total_sales'),
@@ -142,10 +160,23 @@ class ReportController extends Controller
 
     public function salesByProductReport($startTimestamp, $endTimestamp)
     {
+        // Convert the start and end timestamps to DateTime objects if they are not already
+        if (!($startTimestamp instanceof \DateTime)) {
+            $startTimestamp = new \DateTime($startTimestamp);
+        }
+        if (!($endTimestamp instanceof \DateTime)) {
+            $endTimestamp = new \DateTime($endTimestamp);
+        }
+
+        $endOfDay = clone $endTimestamp;
+        $endOfDay->setTime(23, 59, 59);
+
+        // dd($startTimestamp, $endOfDay);
+
         $report = DB::table('transactions')
             ->join('transactions_items', 'transactions.id', '=', 'transactions_items.transaction_id')
             ->join('items', 'transactions_items.items_id', '=', 'items.id')
-            ->whereBetween('transactions.created_at', [$startTimestamp, $endTimestamp])
+            ->whereBetween('transactions.created_at', [$startTimestamp, $endOfDay])
             ->select(
                 'items.name',
                 DB::raw('SUM(transactions_items.quantity) as total_sold'),
@@ -156,5 +187,4 @@ class ReportController extends Controller
 
         return $report;
     }
-
 }
