@@ -20,13 +20,16 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
+    
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
-    <!-- Jquery -->
-    {{-- <script src="/js/jquery-3.7.1.min.js">
-        console.log('bisa');
-    </script> --}}
-
+    <link href="https://cdn.datatables.net/v/bs4/dt-2.0.3/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdn.datatables.net/v/bs4/dt-2.0.3/datatables.min.js"></script>    
+    
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

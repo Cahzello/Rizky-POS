@@ -39,7 +39,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive-md">
-                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;" id="itemTable">
                     <thead class="thead-dark">
                         <tr>
                             <th rowspan="2" class="align-middle">No</th>
@@ -57,10 +57,10 @@
                     </thead>
                     <tbody>
 
-                        @if ($data->count() > 0)
+                        @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr id="{{ 'data_' . $item->id}}">
-                                    <td style="width: 5%;">{{ $data->firstItem() + $loop->index }}</td>
+                                    <td style="width: 5%;">{{ $key + 1 }}</td>
                                     <td>{{$item->name}}</td>
                                     <td {{$item->stock_level == 0 ? 'class=table-danger' : ''}}>{{$item->stock_level}}</td>
                                     <td>Rp {{number_format($item->price)}}</td>
@@ -90,7 +90,11 @@
                     </tbody>
                 </table>
             </div>
-            {{$data->links('pagination::bootstrap-4')}}
+            {{-- {{$data->links('pagination::bootstrap-4')}} --}}
         </div>
     </div>
+
+    <script>
+        new DataTable('#itemTable');
+    </script>
 @endsection
