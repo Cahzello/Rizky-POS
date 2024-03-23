@@ -28,7 +28,7 @@ class CategoryController extends Controller
             $this->authorize('owner');
         }
 
-        $paginate = Categories::latest()->paginate(10);
+        $paginate = Categories::get()->all();
 
         return view('categoryView.categoryIndex', [
             'data' => $paginate
