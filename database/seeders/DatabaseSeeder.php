@@ -21,14 +21,20 @@ class DatabaseSeeder extends Seeder
             'username' => 'rizky',
             'email' => 'cahzello@gmail.com',
             'password' => bcrypt('password'),
-            'role' => 'admin'
+            'role' => 'owner'
         ]);
         User::create([
             'username' => 'miku',
             'email' => 'miku@gmail.com',
             'password' => bcrypt('password'),
-            'role' => 'user',
+            'role' => 'admin',
             'path_file' => 'avatars/Zc21WZwZNHQEQQARJRUFzEdKClrXYcYnm2G9e9vJ.png'
+        ]);
+        User::create([
+            'username' => 'ren',
+            'email' => 'ren@gmail.com',
+            'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
         User::factory(3)->create();
         // Categories::factory(20)->create();

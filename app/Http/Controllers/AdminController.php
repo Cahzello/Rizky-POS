@@ -14,7 +14,13 @@ class AdminController extends Controller
      */
     public function index() 
     {   
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
+
         $data = User::paginate(10);
         return view('AdminView.adminIndex', [
             'data' => $data
@@ -42,7 +48,12 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $userData = User::find($id);
         // dd($userData);

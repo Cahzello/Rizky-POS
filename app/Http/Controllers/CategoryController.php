@@ -21,7 +21,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $paginate = Categories::latest()->paginate(10);
 
@@ -67,7 +72,12 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
         $data = Categories::find($id);
 
         return view('categoryView.categoryEdit', [

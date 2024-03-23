@@ -20,7 +20,12 @@ class CustomerController extends Controller
      */
     public function index()
     {   
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $data = Customer::latest()->paginate(10);
 
@@ -66,7 +71,12 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
         $data = Customer::find($id);
 
         return view('customerView.customerEdit', [

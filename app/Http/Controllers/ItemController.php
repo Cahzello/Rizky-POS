@@ -21,8 +21,13 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $this->authorize('isAdmin');
+    {   
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $filtered_data = Item::latest()->paginate(10);
         //it seems error but its not, just intelephense being intelephense. see https://laravel.com/docs/10.x/collections#method-pluck
@@ -40,6 +45,8 @@ class ItemController extends Controller
      */
     public function create()
     {
+        $this->authorize('owner');
+
         $this->authorize('isAdmin');
 
         $data = Categories::get();

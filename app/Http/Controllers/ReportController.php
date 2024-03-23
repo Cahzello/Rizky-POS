@@ -14,7 +14,12 @@ class ReportController extends Controller
      */
     public function index()
     {   
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $data = Sales_summary::latest()->get();
         return view('reportView.reportIndex', [
@@ -82,7 +87,12 @@ class ReportController extends Controller
      */
     public function show(string $id)
     {
-        $this->authorize('isAdmin');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
 
         $salesSummary = Sales_summary::find($id);
         $salesByProduct = Sales_by_product::find($salesSummary->id)->all();

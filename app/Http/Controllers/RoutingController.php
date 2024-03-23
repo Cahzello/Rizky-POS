@@ -21,7 +21,7 @@ class RoutingController extends Controller
         $categoryData = Categories::latest()->first();
         $customerData = Customer::latest()->first();
         $transactionData = Transactions::with('customers')->where('users_id', auth()->id())->latest()->first();
-        $cusData = $transactionData->customers;
+        $cusData = $transactionData->customers ?? [];
 
         return view('dashboard', [
             'active' => 'dashboard',
