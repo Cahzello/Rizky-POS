@@ -40,8 +40,12 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('isAdmin');
-        return view('categoryView.categoryCreate');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }        return view('categoryView.categoryCreate');
     }
 
     /**

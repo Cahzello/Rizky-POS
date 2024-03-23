@@ -36,9 +36,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'user',
         ]);
-        User::factory(3)->create();
-        // Categories::factory(20)->create();
-        // Customer::factory(20)->create();
-        // Item::factory(20)->create();
+        // User::factory(3)->create();
+        Categories::factory(20)->create();
+        Customer::factory(20)->create();
+        Item::factory(20)->create();
     }
 }

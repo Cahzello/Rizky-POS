@@ -39,8 +39,12 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        $this->authorize('isAdmin');
-        return view('customerView.customerCreate');
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }        return view('customerView.customerCreate');
     }
 
     /**

@@ -45,10 +45,12 @@ class ItemController extends Controller
      */
     public function create()
     {
-        $this->authorize('owner');
-
-        $this->authorize('isAdmin');
-
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
         $data = Categories::get();
         // dd($data);
         return view('itemView.itemCreate', [
@@ -100,8 +102,12 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        $this->authorize('isAdmin');
-
+        if (auth()->user()->role == 'admin') {
+            $this->authorize('isAdmin');
+        }
+        if (auth()->user()->role == 'owner') {
+            $this->authorize('owner');
+        }
         $data = Item::find($id);
         $categories = Categories::get()->all();
         return view('itemView.itemEdit', [
