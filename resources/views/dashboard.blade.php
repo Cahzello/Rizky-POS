@@ -161,9 +161,9 @@
                             <a href="{{ route('category.create') }}" class="btn btn-primary">Create Category</a>
                         @else
                             <p>Category Name: {{ $data['categoryData']->name }}</p>
-                            <p>Date Item Created:
+                            <p>Date Category Created:
                                 {{ $data['categoryData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
-                            <p>Date Item Updated:
+                            <p>Date Category Updated:
                                 {{ $data['categoryData']->updated_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                         @endif
                     </div>
@@ -184,9 +184,9 @@
                             <a href="{{ route('customer.create') }}" class="btn btn-primary">Input Customer</a>
                         @else
                             <p>Customer Name: {{ $data['customerData']->name }}</p>
-                            <p>Date Item Created:
+                            <p>Date Customer Data Created:
                                 {{ $data['customerData']->created_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
-                            <p>Date Item Updated:
+                            <p>Date Customer Data Updated:
                                 {{ $data['customerData']->updated_at->setTimeZone('Asia/Jakarta')->toDayDateTimeString() }}</p>
                         @endif
                     </div>
