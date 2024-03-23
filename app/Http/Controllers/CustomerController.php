@@ -27,7 +27,7 @@ class CustomerController extends Controller
             $this->authorize('owner');
         }
 
-        $data = Customer::latest()->paginate(10);
+        $data = Customer::get()->all();
 
         return view('customerView.customerIndex', [
             'data' => $data

@@ -44,7 +44,7 @@
                             <th colspan="2" class="align-middle">Actions</th>
                         </tr>
                         <tr>
-                            <th>Edit</th>
+                            <th class="text-center">Edit</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -52,9 +52,9 @@
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr>
-                                    <td style="width: 5%;">{{ $key + 1 }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td style="width: 10%;">
+                                    <td style="width: 5%;" class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-left">{{ $item->name }}</td>
+                                    <td style="width: 10%;" class="text-center">
                                         <a href="{{route('category.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square " ></i></a>
                                     </td>

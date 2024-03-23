@@ -20,19 +20,22 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    
+
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="https://cdn.datatables.net/v/bs4/dt-2.0.3/datatables.min.css" rel="stylesheet">
- 
-    <script src="https://cdn.datatables.net/v/bs4/dt-2.0.3/datatables.min.js"></script>    
-    
+
+    <script src="https://cdn.datatables.net/v/bs4/dt-2.0.3/datatables.min.js"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 </head>
@@ -98,7 +101,7 @@
                     </div>
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
-                        <form action="{{ route('logout') }}" method="POST" >
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             @method('POST')
                             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>

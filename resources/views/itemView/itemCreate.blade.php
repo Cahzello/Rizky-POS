@@ -111,10 +111,7 @@
                 <div>
                     <label for="category">Item Category</label>
                     <div class="input-group mb-3 w-50">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
-                        </div>
-                        <select class="form-control @error('category') is-invalid @enderror" id="category"
+                        <select class="category form-control @error('category') is-invalid @enderror" id="category"
                             name="categories_id">
                             <option value="select">Select Category</option>
                             @foreach ($data as $item)
@@ -133,6 +130,12 @@
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.category').select2();
+        });
+    </script>
 
     <script>
         document.getElementById('itemImage').addEventListener('change', function(e) {

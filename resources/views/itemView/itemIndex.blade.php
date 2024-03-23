@@ -44,8 +44,8 @@
                         <tr>
                             <th rowspan="2" class="align-middle">No</th>
                             <th rowspan="2" class="align-middle">Nama Item</th>
-                            <th rowspan="2" class="align-middle">Stock</th>
-                            <th rowspan="2" class="align-middle">Price</th>
+                            <th rowspan="2" class="align-middle text-center">Stock</th>
+                            <th rowspan="2" class="align-middle text-left">Price</th>
                             <th rowspan="2" class="align-middle">Cost Price</th>
                             <th rowspan="2" class="align-middle">Category</th>
                             <th colspan="2">Actions</th>
@@ -60,12 +60,12 @@
                         @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr id="{{ 'data_' . $item->id}}">
-                                    <td style="width: 5%;">{{ $key + 1 }}</td>
-                                    <td>{{$item->name}}</td>
-                                    <td {{$item->stock_level == 0 ? 'class=table-danger' : ''}}>{{$item->stock_level}}</td>
-                                    <td>Rp {{number_format($item->price)}}</td>
-                                    <td>Rp {{number_format($item->cost_price)}}</td>
-                                    <td>{{ $category[$key] == NULL ? 'Category hasn\'t been set' : $category[$key]}}</td>
+                                    <td style="width: 5%;" class="text-center">{{ $key + 1 }}</td>
+                                    <td class="text-left" >{{$item->name}}</td>
+                                    <td class="text-center {{$item->stock_level == 0 ? 'table-danger' : ''}}">{{$item->stock_level}}</td>
+                                    <td class="text-left">Rp {{number_format($item->price)}}</td>
+                                    <td class="text-left">Rp {{number_format($item->cost_price)}}</td>
+                                    <td class="text-left">{{ $category[$key] == NULL ? 'Category hasn\'t been set' : $category[$key]}}</td>
                                     <td style="width: 10%;">
                                         <a href="{{route('items.edit', $item->id)}}" title="Edit" class="btn btn-warning"><i
                                                 class="fas fa-pen-square"></i> </a>

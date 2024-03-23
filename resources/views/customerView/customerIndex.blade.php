@@ -35,7 +35,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;">
+                <table class="table table-striped table-bordered table-hover text-center" style="width: 100%;" id="tableCustomer">
                     <thead class="thead-dark">
                         <tr class="text-center">
                             <th rowspan="2" class="align-middle">No</th>
@@ -49,13 +49,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($data->total() > 0)
+                        @if (!empty($data))
                             @foreach ($data as $key => $item)
                                 <tr>
-                                    <td style="width: 5%;"> {{ $data->firstItem() + $loop->index }} </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td style="width: 10%;">
+                                    <td style="width: 5%;" class="text-center"> {{ $key+1 }} </td>
+                                    <td class="text-left">{{ $item->name }}</td>
+                                    <td class="text-left">{{ $item->email }}</td>
+                                    <td style="width: 10%;" class="text-center">
                                         <a href="{{ route('customer.edit', $item->id) }}" title="Edit"
                                             class="btn btn-warning"><i class="fas fa-pen-square "></i></a>
                                     </td>
@@ -79,7 +79,11 @@
                     </tbody>
                 </table>
             </div>
-            {{$data->links('pagination::bootstrap-4')}}
         </div>
     </div>
+
+    <script>
+        new DataTable('#tableCustomer');
+    </script>
 @endsection
+
